@@ -109,3 +109,4 @@ s = "".join([random.choice(string.ascii_uppercase) for i in range(10)])
 result = substrings.find_substring(s, max_uniq)'''
 ~~~
 
+[end]
