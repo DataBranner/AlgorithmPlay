@@ -1,5 +1,11 @@
 ## python_substrings
 
+*****
+
+# Code corrupted, 20131023; now working to repair.
+
+*****
+
 Exercises involving substring search.
 
 ### Task
