@@ -58,6 +58,7 @@ more than two (or other specified quantity of) unique characters.'''
                 start_i_running = chars_found_i[cursor]
         # Recalculate length of running substring and compare to longest.
         length_running = end_i_running - start_i_running
+#        print('    length_running:', length_running)
         if length_running > length_longest:
             start_i_longest, end_i_longest, length_longest = (
                     start_i_running, end_i_running, length_running)
