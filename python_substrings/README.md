@@ -1,11 +1,5 @@
 ## python_substrings
 
-*****
-
-# Code corrupted, 20131023; now working to repair.
-
-*****
-
 Exercises involving substring search.
 
 ### Task
@@ -17,7 +11,7 @@ Given an input string `s`, find  example of the longest substring containing no 
 There are two different versions of the program:
 
   * `substrings_set_and_list.py`
-  * `substrings_list_only.py`
+  * `substrings_list_only.py` (Note: passes `py.test` tests, but I think there may be something wrong, 20131023. Pending.)
 
 With input string `s` and optional prescribed maximum number of unique characters `max_uniq`, the function:
 
