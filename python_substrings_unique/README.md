@@ -1,6 +1,4 @@
-## python_substrings
-
-Exercises involving substring search.
+## Exercises involving finding substrings composed of fixed numbers of unique characters.
 
 ### Task
 
