@@ -5,6 +5,7 @@
 
 """Implement a binary search tree with insertion from root and no rebalancing."""
 
+import sys
 from collections import deque as D
 
 class Node():
@@ -15,7 +16,7 @@ class Node():
         self.right = None
 
 def insert(root, node):
-    if not root.key:
+    if root.key == None:
         root.key = node.key
     elif node.key <= root.key:
         # insert in this subtree
@@ -64,21 +65,40 @@ def breadthfirst_traverse(root):
     queue = D([root])
     while queue:
         root = queue.popleft()
-#        print('  now have root.key:', root.key)
         output.append(root.key)
-#        print(output)
-#        print('queue:', [i.key for i in queue])
         if root.left:
             queue.extend([root.left])
-#            print('  adding', root.left.key)
         if root.right:
             queue.extend([root.right])
-#            print('  adding', root.right.key)
     return output
 
-def populate_tree(key):
-    root = Node(key[0], 0)
-    for item in key[1:]:
-        node = Node(item, 0)
-        insert(root, node)
+def min(root):
+    if not root:
+        return None
+    elif root.left:
+        return min(root.left)
+    else:
+        return root.key
+
+def max(root):
+    if not root:
+        return None
+    elif root.right:
+        return max(root.right)
+    else:
+        return root.key
+
+def populate_tree(keys=None, data=None):
+    if not keys:
+        root = None
+    else:
+        if not all(isinstance(i, int) for i in keys):
+            print('\nOnly integers are allowed as keys.\nExiting.')
+            sys.exit(1)
+        if not data:
+            data = [None for i in range(len(keys))]
+        root = Node(keys[0], data[0])
+        for key, datum in zip(keys[1:], data[1:]):
+            node = Node(key, datum)
+            insert(root, node)
     return root
