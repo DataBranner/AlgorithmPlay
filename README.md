@@ -1,7 +1,56 @@
-## Algorithm Play
+## Naïve binary search tree implementation
 
-This directory contains Python implementations of various algorithms and other problems. All have been done for my own study. I would be very grateful for any criticism or comments.
+Contains
+  
+    binary_search_naive.py
+    test/test_binary_search_naive.py
 
-Each problem is in its own subdirectory with its own README.
+To create a tree use:
+
+    the_tree = populate_tree(data)
+
+where `data` is a list. To sort the data, use
+
+    inorder_traverse(the_tree)
+
+There are also functions
+
+    preorder_traverse(the_tree)
+    postorder_traverse(the_tree)
+    breadfirst_traverse(the_tree)
+
+Directory `test` is meant for use with `py.test`. 
+
+### Strategy
+
+  1. This implements a binary search tree using node-objects. The invariant —
+
+    node.left.key <= node.key <= node.right.key
+
+— is always maintained.
+
+  2. Insertions are done from the root down.
+  2. There is no rebalancing, so it is possible create a tree with far too many levels — inefficient as a worst-case sorting tool.
+
+### Timing
+
+~~~
+n: 10:  10000 loops, best of 3: 40.6 usec per loop
+n: 100:  1000 loops, best of 3: 512 usec per loop
+n: 1000:  100 loops, best of 3: 6.43 msec per loop
+n: 10000:  10 loops, best of 3: 80.2 msec per loop
+n: 100000: 10 loops, best of 3: 1.09 sec per loop
+~~~
+
+~~~
+python -m timeit -s '''
+import random
+import binary_search_naive as B
+n = 100000
+def generate_list():
+    return [random.randint(1, 10000000) for i in range(n)]
+''' '''
+B.populate_tree(generate_list())
+'''
 
 [end]

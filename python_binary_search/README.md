@@ -34,23 +34,26 @@ Directory `test` is meant for use with `py.test`.
 
 ### Timing
 
+Average time complexity: O(n). Data and timing code below:
+
 ~~~
-n: 10:  10000 loops, best of 3: 40.6 usec per loop
-n: 100:  1000 loops, best of 3: 512 usec per loop
-n: 1000:  100 loops, best of 3: 6.43 msec per loop
-n: 10000:  10 loops, best of 3: 80.2 msec per loop
-n: 100000: 10 loops, best of 3: 1.09 sec per loop
+n: 10:  10000 loops, best of 3: 40.6 usec per loop.
+n: 100:  1000 loops, best of 3: 512 usec per loop;  factor increase: 12.7
+n: 1000:  100 loops, best of 3: 6.43 msec per loop; factor increase: 12.6
+n: 10000:  10 loops, best of 3: 80.2 msec per loop; factor increase: 12.5
+n: 100000: 10 loops, best of 3: 1.04 sec per loop;  factor increase: 13.0
 ~~~
 
 ~~~
 python -m timeit -s '''
 import random
 import binary_search_naive as B
-n = 100000
+n = 1000000
 def generate_list():
     return [random.randint(1, 10000000) for i in range(n)]
 ''' '''
 B.populate_tree(generate_list())
 '''
+~~~
 
 [end]
