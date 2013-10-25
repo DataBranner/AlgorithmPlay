@@ -3,7 +3,13 @@
 # David Prager Branner
 # Written for Python 3.3
 
-"""Implement a binary search tree with insertion from root and no rebalancing."""
+"""
+Implement a binary search tree with insertion from root and no rebalancing.
+
+Requirements:
+    1. List of keys must be integers only and have no duplicates
+    2. List of data must be of the same cardinality as list of keys.
+"""
 
 import sys
 from collections import deque as D
@@ -18,20 +24,23 @@ class Node():
 def insert(root, node):
     if root.key == None:
         root.key = node.key
-    elif node.key <= root.key:
+    elif node.key < root.key:
         # insert in this subtree
         if not root.left:
             root.left = node
 #            print('inserted', node.key, 'on left')
         else:
             insert(root.left, node)
-    else:
+    elif node.key > root.key:
         # insert in this subtree
         if not root.right:
             root.right = node
 #            print('inserted', node.key, 'on right')
         else:
             insert(root.right, node)
+    else:
+        # key already exists
+        pass
 
 def preorder_traverse(root, output=None):
     if not output:
@@ -73,6 +82,7 @@ def breadthfirst_traverse(root):
     return output
 
 def min(root):
+    """Return leftmost key."""
     if not root:
         return None
     elif root.left:
@@ -81,6 +91,7 @@ def min(root):
         return root.key
 
 def max(root):
+    """Return rightmost key."""
     if not root:
         return None
     elif root.right:
@@ -88,17 +99,27 @@ def max(root):
     else:
         return root.key
 
+def check_for_fatal_issues(keys, data):
+    if not all(isinstance(i, int) for i in keys):
+        print('\nOnly integers are allowed as keys.\nExiting.')
+        sys.exit(1)
+    elif len(set(keys)) != len(keys):
+        print('\nAll keys must be unique.\nExiting.')
+        sys.exit()
+    elif len(keys) !=len(data):
+        print('''\nWe have {} keys and {} pieces of data; '''
+            '''they must be the same.\nExiting'''.
+            format(len(keys), len(data)))
+
 def populate_tree(keys=None, data=None):
+    """Returns root node of populated tree."""
     if not keys:
-        root = None
-    else:
-        if not all(isinstance(i, int) for i in keys):
-            print('\nOnly integers are allowed as keys.\nExiting.')
-            sys.exit(1)
-        if not data:
-            data = [None for i in range(len(keys))]
-        root = Node(keys[0], data[0])
-        for key, datum in zip(keys[1:], data[1:]):
-            node = Node(key, datum)
-            insert(root, node)
+        return None
+    if not data:
+        data = [None for i in range(len(keys))]
+    check_for_fatal_issues(keys, data)
+    root = Node(keys[0], data[0])
+    for key, datum in zip(keys[1:], data[1:]):
+        node = Node(key, datum)
+        insert(root, node)
     return root
