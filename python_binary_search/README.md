@@ -32,4 +32,25 @@ Directory `test` is meant for use with `py.test`.
   2. Insertions are done from the root down.
   2. There is no rebalancing, so it is possible create a tree with far too many levels — inefficient as a worst-case sorting tool.
 
+### Timing
+
+~~~
+n: 10:  10000 loops, best of 3: 40.6 usec per loop
+n: 100:  1000 loops, best of 3: 512 usec per loop
+n: 1000:  100 loops, best of 3: 6.43 msec per loop
+n: 10000:  10 loops, best of 3: 80.2 msec per loop
+n: 100000: 10 loops, best of 3: 1.09 sec per loop
+~~~
+
+~~~
+python -m timeit -s '''
+import random
+import binary_search_naive as B
+n = 100000
+def generate_list():
+    return [random.randint(1, 10000000) for i in range(n)]
+''' '''
+B.populate_tree(generate_list())
+'''
+
 [end]
