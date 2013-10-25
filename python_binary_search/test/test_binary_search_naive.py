@@ -21,6 +21,11 @@ def test_insertion_including_0():
     tree = B.populate_tree(random_list)
     assert B.inorder_traverse(tree) == sorted(random_list)
 
+def test_insertion_non_int_keys():
+    random_list = get_random_list()
+    random_list.append(1.3)
+    assert pytest.raises(SystemExit, "B.populate_tree(random_list)")
+
 def test_insertion_dup_keys():
     random_list = get_random_list()
     random_list.append(random_list[-1])
