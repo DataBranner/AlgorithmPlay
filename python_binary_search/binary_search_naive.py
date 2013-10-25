@@ -101,13 +101,11 @@ def max(root):
 
 def check_for_fatal_issues(keys, data):
     if not all(isinstance(i, int) for i in keys):
-        print('\nOnly integers are allowed as keys.\nExiting.')
-        sys.exit(1)
+        sys.exit('\nOnly integers are allowed as keys.\nExiting.')
     elif len(set(keys)) != len(keys):
-        print('\nAll keys must be unique.\nExiting.')
-        sys.exit()
+        sys.exit('\nAll keys must be unique.\nExiting.')
     elif len(keys) !=len(data):
-        print('''\nWe have {} keys and {} pieces of data; '''
+        sys.exit('''\nWe have {} keys and {} pieces of data; '''
             '''they must be the same.\nExiting'''.
             format(len(keys), len(data)))
 
