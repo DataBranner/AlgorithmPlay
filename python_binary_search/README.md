@@ -1,5 +1,9 @@
 ## Naïve binary search tree implementation
 
+****
+To be updated soon, 20131025.
+****
+
 Contains
   
     binary_search_naive.py
