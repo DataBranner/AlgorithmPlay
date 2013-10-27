@@ -128,37 +128,66 @@ def delete(root, to_delete):
         else:
             node.parent.right = None
         # Node to return remains root.
-        return root
     #
     # Case 2: node that has only one child.
     #    2a. Node has only left child, which will replace it.
     elif not node.right:
-        # 2ai. If node is not root, we need to know which child of parent 
-        #    this node is.
+        # 2ai. If node is not root, then parent's pointer to node is changed
+        #    to node's left child.
         if node.parent:
-            if node.parent.left == node:
-                node.parent.left = node.left
-            elif node.parent.right == node:
-                node.parent.right = node.left
-            return node
+            node.parent = fix_parent_link_to_node(node, node.left)
+#             if node.parent.left == node:
+#                 node.parent.left = node.left
+#             elif node.parent.right == node:
+#                 node.parent.right = node.left
         # 2aii. But if node is root, then node's sole child becomes root.
         else:
             return node.left
     #    2b. Node has only right child, which will replace it.
     elif not node.left:
-        # 2bi. If node is not root, we need to know which child of parent 
-        #    this node is.
+        # 2bi. If node is not root, then parent's pointer to node is changed
+        #    to node's right child.
         if node.parent:
-            if node.parent.left == node:
-                node.parent.left = node.right
-            elif node.parent.right == node:
-                node.parent.right = node.right
-            return node
+            node.parent = fix_parent_link_to_node(node, node.right)
+#             if node.parent.left == node:
+#                 node.parent.left = node.right
+#             elif node.parent.right == node:
+#                 node.parent.right = node.right
         # 2bii. But if node is root, then node's sold child becomes root.
         else:
             return node.right
     #
     # Case 3: node has two children. Replace with maximum node in left subtree.
+    # 3a. Get maximum node in left subtree.
+    replacement = max(node.left)
+    # 3b. If replacement has child (must be left), fix replacement's parent so
+    # that its right child (necessarily right) points to that child.
+    if replacement.left:
+        replacement.parent.right = replacement.left
+    # 3b. Replacement takes on node's children.
+    replacement.right = node.right
+    if node.left != replacement:
+        replacement.left = node.left
+    # 3c. If node is not root, then parent's pointer to node is changed to
+    # replacement.
+    if node.parent:
+        node.parent = fix_parent_link_to_node(node, replacement)
+    # 3d. But if node is root, then node's sole child becomes root.
+    else:
+        return replacement
+    #
+    # If we are here, then tree is changed but root is unchanged.
+    return root
+
+def fix_parent_link_to_node(node, replacement):
+    """Take parent's link to node and set it to replacement."""
+    # Assumes parent exists
+    if node.parent.left == node:
+        node.parent.left = replacement
+    elif node.parent.right == node:
+        node.parent.right = replacement
+    return node.parent
+
 
 def check_for_fatal_issues(keys, data):
     if not all(isinstance(i, int) for i in keys):
