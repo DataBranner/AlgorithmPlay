@@ -34,11 +34,11 @@ Directory `test` is meant for use with `py.test`.
 
 ### Strategy
 
-  1. This implements a binary search tree using node-objects. The invariant —
+  1. This implements a binary search tree using node-objects. The invariant
 
-    node.left.key <= node.key <= node.right.key
+        node.left.key <= node.key <= node.right.key
 
-— is always maintained.
+  is always maintained.
 
   2. Insertions are done from the root down.
   2. There is no rebalancing, so it is possible create a tree with far too many levels — inefficient as a worst-case sorting tool.
