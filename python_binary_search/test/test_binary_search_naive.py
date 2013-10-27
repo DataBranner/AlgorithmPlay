@@ -146,7 +146,6 @@ def test_delete_root():
         tree = make_random_tree()
         to_delete = tree.key
         tree = B.delete(tree, to_delete)
-        print('new root:', tree.key)
         assert B.search(tree, to_delete) == None
 
 def test_delete_nonexistent():
