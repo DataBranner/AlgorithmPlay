@@ -9,10 +9,18 @@ import binary_search_naive as B
 trials = 10
 int_range = (1, 100000)
 
+# Utility functions
+
+def make_random_tree(size=1000):
+    random_keys = get_random_list_unique()
+    return B.populate_tree(random_keys)
+
 def get_random_list_unique(size=1000):
     """Function to generate list of unique integers for use as keys."""
     random_list = [random.randint(*int_range) for i in range(size)]
     return list(set(random_list))
+
+# Tests begin here
 
 def test_insertion():
     """Test insertion of lists of random integers"""
@@ -84,22 +92,28 @@ def test_search_nonexistent():
         to_find = random.randint(*int_range)
     assert B.search(tree, to_find) == None
 
-# def test_delete_random():
-#     """Delete a random key from the tree."""
-#     # NOTE: how do we know we have deleted one and only one node
-#     # Also, we need to test for all three types of deletion.
-#     random_keys = get_random_list_unique()
-#     tree = B.populate_tree(random_keys)
-#     to_delete = random.choice(random_keys)
-#     assert B.search(tree, to_delete).key == to_delete
-#     B.delete(tree, to_delete)
-#     assert B.search(tree, to_delete) == None
-# 
-# def test_delete_nonexistent():
-#     """Test outcome if delete is called on non-existent key."""
-#     random_keys = get_random_list_unique(10)
-#     tree = B.populate_tree(random_keys)
-#     to_delete = random_keys[0]
-#     while to_delete in random_keys:
-#         to_delete = random.randint(*int_range)
-#     assert B.delete(tree, to_delete) == None
+def test_delete_leaf():
+    """Delete random leaves from the tree."""
+    tree = make_random_tree()
+    for trial in range(trials):
+        to_delete = B.breadthfirst_traverse(tree)[-1]
+        tree = B.delete(tree, to_delete)
+        assert B.search(tree, to_delete) == None
+
+# def test_delete_root():
+#     """Delete random leaves from the tree."""
+#     tree = make_random_tree()
+#     for trial in range(trials):
+#         to_delete = tree.key
+#         tree = B.delete(tree, to_delete)
+#         assert B.search(tree, to_delete) == None
+
+def test_delete_nonexistent():
+    """Test outcome if delete is called on non-existent key."""
+    random_keys = get_random_list_unique(10)
+    tree = B.populate_tree(random_keys)
+    # To start while loop, use value that definitely exists.
+    to_delete = random_keys[0]
+    while to_delete in random_keys:
+        to_delete = random.randint(*int_range)
+    assert B.delete(tree, to_delete) == None
