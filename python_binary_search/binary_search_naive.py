@@ -83,42 +83,82 @@ def breadthfirst_traverse(root):
     return output
 
 def min(root):
-    """Return leftmost key."""
+    """Return leftmost node."""
     if not root:
         return None
     elif root.left:
         return min(root.left)
     else:
-        return root.key
+        return root
 
 def max(root):
-    """Return rightmost key."""
+    """Return rightmost node."""
     if not root:
         return None
     elif root.right:
         return max(root.right)
     else:
-        return root.key
-
-def search(root, key):
-    """Return the node containing key."""
-    if root.key == key:
         return root
-    elif root.left and key < root.key:
-        return search(root.left, key)
-    elif root.right and key > root.key:
-        return search(root.right, key)
+
+def search(root, to_find):
+    """Return the node containing to_find."""
+    if root.key == to_find:
+        return root
+    elif root.left and to_find < root.key:
+        return search(root.left, to_find)
+    elif root.right and to_find > root.key:
+        return search(root.right, to_find)
     else:
         return None
 
-def delete(root, key):
-    """Find and delete node with desired key."""
-    node = search(root, key)
-    if node:
-        if key < node.parent.key:
+def delete(root, to_delete):
+    """Find and delete node with desired to_delete."""
+    node = search(root, to_delete)
+    if not node:
+        return
+    #
+    # Case 1: node that is a leaf.
+    if not (node.left and node.right):
+        # If node is root, tree without node is empty.
+        if not node.parent:
+            return None
+        # Set to None parent's child that held the value "to_delete".
+        elif to_delete < node.parent.key:
             node.parent.left = None
         else:
             node.parent.right = None
+        # Node to return remains root.
+        return root
+    #
+    # Case 2: node that has only one child.
+    #    2a. Node has only left child, which will replace it.
+    elif not node.right:
+        # 2ai. If node is not root, we need to know which child of parent 
+        #    this node is.
+        if node.parent:
+            if node.parent.left == node:
+                node.parent.left = node.left
+            elif node.parent.right == node:
+                node.parent.right = node.left
+            return node
+        # 2aii. But if node is root, then node's sole child becomes root.
+        else:
+            return node.left
+    #    2b. Node has only right child, which will replace it.
+    elif not node.left:
+        # 2bi. If node is not root, we need to know which child of parent 
+        #    this node is.
+        if node.parent:
+            if node.parent.left == node:
+                node.parent.left = node.right
+            elif node.parent.right == node:
+                node.parent.right = node.right
+            return node
+        # 2bii. But if node is root, then node's sold child becomes root.
+        else:
+            return node.right
+    #
+    # Case 3: node has two children. Replace with maximum node in left subtree.
 
 def check_for_fatal_issues(keys, data):
     if not all(isinstance(i, int) for i in keys):
