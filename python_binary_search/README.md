@@ -53,85 +53,79 @@ Directory `test` is meant for use with `py.test`.
 
 #### In-order traversal: 
 
-  1. Average time complexity (randomly ordered list): O(ggg). 
+  1. Average time complexity (randomly ordered list): O(n). 
 
 #### Data and timing code:
 
   1. Populating a tree: Average time complexity
-        ~~~
-n: 10:  10000 loops, best of 3: 40.6 usec per loop.
-n: 100:  1000 loops, best of 3: 512 usec per loop;  factor increase: 12.7
-n: 1000:  100 loops, best of 3: 6.43 msec per loop; factor increase: 12.6
-n: 10000:  10 loops, best of 3: 80.2 msec per loop; factor increase: 12.5
-n: 100000: 10 loops, best of 3: 1.04 sec per loop;  factor increase: 13.0
-~~~
 
-        ~~~
-python -m timeit -s '''
-import random
-import binary_search_naive as B
-n = 1000000
-def generate_list():
-    return [random.randint(1, 10000000) for i in range(n)]
-''' '''
-B.populate_tree(generate_list())
-'''
-~~~
+        n: 10:  10000 loops, best of 3: 40.6 usec per loop.
+        n: 100:  1000 loops, best of 3: 512 usec per loop;  factor increase: 12.7
+        n: 1000:  100 loops, best of 3: 6.43 msec per loop; factor increase: 12.6
+        n: 10000:  10 loops, best of 3: 80.2 msec per loop; factor increase: 12.5
+        n: 100000: 10 loops, best of 3: 1.04 sec per loop;  factor increase: 13.0
+
+  Timing code:
+
+        python -m timeit -s '''
+        import random
+        import binary_search_naive as B
+        n = 1000000
+        def generate_list():
+            return [random.randint(1, 10000000) for i in range(n)]
+        ''' '''
+        B.populate_tree(generate_list())
+        '''
 
   2. Populating a tree: Worst-case time complexity
 
-        ~~~
-n: 10:  10000 loops, best of 3: 21.5 usec per loop
-n: 100:  1000 loops, best of 3: 1.64 msec per loop
-n: 1000:  RuntimeError: maximum recursion depth exceeded in comparison
+        n: 10:  10000 loops, best of 3: 21.5 usec per loop
+        n: 100:  1000 loops, best of 3: 1.64 msec per loop
+        n: 1000:  RuntimeError: maximum recursion depth exceeded in comparison
 
-Since recursion bottoms out, use smaller factor to increase _n_:
+  Since recursion bottoms out, use smaller factor to increase _n_:
 
-n: 10:  10000 loops, best of 3: 21.5 usec per loop.
-n: 20:  10000 loops, best of 3: 71.9 usec per loop;  factor increase: 3.3
-n: 40:  1000 loops, best of 3: 272 usec per loop;  factor increase: 3.9
-n: 80:  1000 loops, best of 3: 1.04 msec per loop;  factor increase: 3.8
-n: 160: 100 loops, best of 3: 4.13 msec per loop;  factor increase: 4.0
-n: 320: 100 loops, best of 3: 16.9 msec per loop;  factor increase: 4.1
-n: 640: 10 loops, best of 3: 69.2 msec per loop;  factor increase: 4.1
-~~~
+        n: 10:  10000 loops, best of 3: 21.5 usec per loop.
+        n: 20:  10000 loops, best of 3: 71.9 usec per loop;  factor increase: 3.3
+        n: 40:  1000 loops, best of 3: 272 usec per loop;  factor increase: 3.9
+        n: 80:  1000 loops, best of 3: 1.04 msec per loop;  factor increase: 3.8
+        n: 160: 100 loops, best of 3: 4.13 msec per loop;  factor increase: 4.0
+        n: 320: 100 loops, best of 3: 16.9 msec per loop;  factor increase: 4.1
+        n: 640: 10 loops, best of 3: 69.2 msec per loop;  factor increase: 4.1
 
-        ~~~
-python -m timeit -s '''
-import random
-import binary_search_naive as B
-n = 640
-def generate_list():
-    return [i for i in range(n)]
-''' '''
-B.populate_tree(generate_list())
-'''
-~~~
+  Timing code:
 
+        python -m timeit -s '''
+        import random
+        import binary_search_naive as B
+        n = 640
+        def generate_list():
+            return [i for i in range(n)]
+        ''' '''
+        B.populate_tree(generate_list())
+        '''
 
   3. In-order traversal: Average time complexity
-        ~~~
-n: 10:  10 loops, best of 100: 5.36 usec per loop.
-n: 20:  10 loops, best of 100: 10.5 usec per loop
-n: 40:  10 loops, best of 100: 20 usec per loop
-n: 80:  10 loops, best of 100: 40.8 usec per loop
-n: 160: 10 loops, best of 100: 76.8 usec per loop
-n: 320: 10 loops, best of 100: 155 usec per loop
-n: 640: 10 loops, best of 100: 324 usec per loop
 
-~~~
+        n: 10:  10 loops, best of 100: 5.36 usec per loop.
+        n: 20:  10 loops, best of 100: 10.5 usec per loop
+        n: 40:  10 loops, best of 100: 20 usec per loop
+        n: 80:  10 loops, best of 100: 40.8 usec per loop
+        n: 160: 10 loops, best of 100: 76.8 usec per loop
+        n: 320: 10 loops, best of 100: 155 usec per loop
+        n: 640: 10 loops, best of 100: 324 usec per loop
 
-        ~~~
-python -m timeit -r 100 -n 10 -s '''
-import random
-import binary_search_naive as B
-n = 640
-def generate_list():
-    return [random.randint(1, 10000000) for i in range(n)]
-x = B.populate_tree(generate_list())
-''' '''
-_ = B.inorder_traverse(x)
-'''
-~~~
+  Timing code:
+
+        python -m timeit -r 100 -n 10 -s '''
+        import random
+        import binary_search_naive as B
+        n = 640
+        def generate_list():
+            return [random.randint(1, 10000000) for i in range(n)]
+        x = B.populate_tree(generate_list())
+        ''' '''
+        _ = B.inorder_traverse(x)
+        '''
 
 [end]
