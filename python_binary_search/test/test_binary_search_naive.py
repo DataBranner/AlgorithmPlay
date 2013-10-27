@@ -5,10 +5,12 @@ import sys
 sys.path.append(os.path.join('..'))
 import binary_search_naive as B
 
+# Variables for use in the tests
 trials = 10
 int_range = (1, 100000)
 
 def get_random_list_unique(size=1000):
+    """Function to generate list of unique integers for use as keys."""
     random_list = [random.randint(*int_range) for i in range(size)]
     return list(set(random_list))
 
