@@ -102,7 +102,6 @@ def max(root):
 
 def search(root, key):
     """Return the node containing key."""
-    print('at', root.key, 'seeking', key)
     if root.key == key:
         return root
     elif root.left and key < root.key:
@@ -111,6 +110,15 @@ def search(root, key):
         return search(root.right, key)
     else:
         return None
+
+def delete(root, key):
+    """Find and delete node with desired key."""
+    node = search(root, key)
+    if node:
+        if key < node.parent.key:
+            node.parent.left = None
+        else:
+            node.parent.right = None
 
 def check_for_fatal_issues(keys, data):
     if not all(isinstance(i, int) for i in keys):
