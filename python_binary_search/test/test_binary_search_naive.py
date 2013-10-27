@@ -100,16 +100,45 @@ def test_delete_leaf():
         tree = B.delete(tree, to_delete)
         assert B.search(tree, to_delete) == None
 
-def test_delete_has_one_child():
-    random_keys = get_random_list_unique()
-    tree = B.populate_tree(random_keys)
-    # To start while loop, temporarily use this value:
-    to_delete = tree
-    while not (to_delete.left and to_delete.right and to_delete.parent):
-        random_key = random.choice(random_keys)
-        to_delete = B.search(tree, random_key)
-    tree = B.delete(tree, random_key)
-    assert B.search(tree, random_key) == None
+def test_delete_non_root_has_only_right_child():
+    for trial in range(trials):
+        random_keys = get_random_list_unique()
+        tree = B.populate_tree(random_keys)
+        # To start while loop, temporarily use this value:
+        to_delete = tree
+        while not (to_delete.right and 
+                (not to_delete.left) and 
+                to_delete.parent):
+            random_key = random.choice(random_keys)
+            to_delete = B.search(tree, random_key)
+        tree = B.delete(tree, random_key)
+        assert B.search(tree, random_key) == None
+
+def test_delete_non_root_has_only_left_child():
+    for trial in range(trials):
+        random_keys = get_random_list_unique()
+        tree = B.populate_tree(random_keys)
+        # To start while loop, temporarily use this value:
+        to_delete = tree
+        while not (to_delete.left and 
+                (not to_delete.right) and 
+                to_delete.parent):
+            random_key = random.choice(random_keys)
+            to_delete = B.search(tree, random_key)
+        tree = B.delete(tree, random_key)
+        assert B.search(tree, random_key) == None
+
+def test_delete_non_root_has_two_children():
+    for trial in range(trials):
+        random_keys = get_random_list_unique()
+        tree = B.populate_tree(random_keys)
+        # To start while loop, temporarily use this value:
+        to_delete = tree
+        while not (to_delete.left and to_delete.right and to_delete.parent):
+            random_key = random.choice(random_keys)
+            to_delete = B.search(tree, random_key)
+        tree = B.delete(tree, random_key)
+        assert B.search(tree, random_key) == None
 
 # def test_delete_root():
 #     """Delete random leaves from the tree."""
