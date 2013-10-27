@@ -5,12 +5,14 @@ import sys
 sys.path.append(os.path.join('..'))
 import binary_search_naive as B
 
+trials = 10
+
 def get_random_list_unique(size=1000):
     random_list = [random.randint(0, 100000) for i in range(size)]
     return list(set(random_list))
 
 def test_insertion():
-    for trial in range(10):
+    for trial in range(trials):
         random_keys = get_random_list_unique()
         tree = B.populate_tree(random_keys)
         assert B.inorder_traverse(tree) == sorted(random_keys)
@@ -52,3 +54,10 @@ def test_max():
 def test_min():
     random_keys = get_random_list_unique()
     assert B.min(B.populate_tree(random_keys)) == min(random_keys)
+
+def test_search_random():
+    random_keys = get_random_list_unique()
+    tree = B.populate_tree(random_keys)
+    for trial in range(trials):
+        random_key = random.choice(random_keys)
+        assert B.search(tree, random_key).key == random_key
