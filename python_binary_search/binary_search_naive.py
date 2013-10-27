@@ -166,6 +166,7 @@ def delete(root, to_delete):
         print('    Case 3')
         # 3a. Get maximum node in left subtree as "replacement".
         replacement = max(node.left)
+        print('    node:', node.key, 'replacement:', replacement.key)
         # 3b. If replacement has child (must be left), fix replacement's 
         #    parent so that its right child (necessarily right) points to 
         #    replacement's child.

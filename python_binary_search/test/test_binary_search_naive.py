@@ -100,19 +100,32 @@ def test_delete_leaf():
         tree = B.delete(tree, to_delete)
         assert B.search(tree, to_delete) == None
 
+def test_delete_has_one_child():
+    random_keys = get_random_list_unique()
+    tree = B.populate_tree(random_keys)
+    # To start while loop, temporarily use this value:
+    to_delete = tree
+    while not (to_delete.left and to_delete.right and to_delete.parent):
+        random_key = random.choice(random_keys)
+        to_delete = B.search(tree, random_key)
+    tree = B.delete(tree, random_key)
+    assert B.search(tree, random_key) == None
+
 # def test_delete_root():
 #     """Delete random leaves from the tree."""
 #     tree = make_random_tree()
 #     for trial in range(trials):
 #         to_delete = tree.key
+#         print('to_delete:', to_delete)
 #         tree = B.delete(tree, to_delete)
+#         print('new root:', tree.key)
 #         assert B.search(tree, to_delete) == None
 
 def test_delete_nonexistent():
     """Test outcome if delete is called on non-existent key."""
     random_keys = get_random_list_unique(10)
     tree = B.populate_tree(random_keys)
-    # To start while loop, use value that definitely exists.
+    # To start while loop, temporarily use value that definitely exists.
     to_delete = random_keys[0]
     while to_delete in random_keys:
         to_delete = random.randint(*int_range)
