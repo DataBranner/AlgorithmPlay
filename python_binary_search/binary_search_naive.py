@@ -20,6 +20,7 @@ class Node():
         self.data = data
         self.left = None
         self.right = None
+        self.parent = None
 
 def insert(root, node):
     if root.key == None:
@@ -28,14 +29,14 @@ def insert(root, node):
         # insert in this subtree
         if not root.left:
             root.left = node
-#            print('inserted', node.key, 'on left')
+            root.left.parent = root
         else:
             insert(root.left, node)
     elif node.key > root.key:
         # insert in this subtree
         if not root.right:
             root.right = node
-#            print('inserted', node.key, 'on right')
+            root.right.parent = root
         else:
             insert(root.right, node)
     else:
@@ -98,6 +99,18 @@ def max(root):
         return max(root.right)
     else:
         return root.key
+
+def search(root, key):
+    """Return the node containing key."""
+    print('at', root.key, 'seeking', key)
+    if root.key == key:
+        return root
+    elif root.left and key < root.key:
+        return search(root.left, key)
+    elif root.right and key > root.key:
+        return search(root.right, key)
+    else:
+        return None
 
 def check_for_fatal_issues(keys, data):
     if not all(isinstance(i, int) for i in keys):
