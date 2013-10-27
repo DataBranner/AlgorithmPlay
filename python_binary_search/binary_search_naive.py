@@ -178,6 +178,7 @@ def delete(root, to_delete):
     # If we are here, then tree is changed but root is unchanged.
     return root
 
+
 def fix_parent_link_to_node(node, replacement):
     """Take parent's link to node and set it to replacement."""
     # Assumes parent exists
