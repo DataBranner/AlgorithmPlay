@@ -6,7 +6,7 @@ sys.path.append(os.path.join('..'))
 import binary_search_naive as B
 
 # Variables for use in the tests
-trials = 10
+trials = 20
 int_range = (1, 100000)
 
 # Utility functions
@@ -140,15 +140,14 @@ def test_delete_non_root_has_two_children():
         tree = B.delete(tree, random_key)
         assert B.search(tree, random_key) == None
 
-# def test_delete_root():
-#     """Delete random leaves from the tree."""
-#     tree = make_random_tree()
-#     for trial in range(trials):
-#         to_delete = tree.key
-#         print('to_delete:', to_delete)
-#         tree = B.delete(tree, to_delete)
-#         print('new root:', tree.key)
-#         assert B.search(tree, to_delete) == None
+def test_delete_root():
+    """Delete random leaves from the tree."""
+    for trial in range(trials):
+        tree = make_random_tree()
+        to_delete = tree.key
+        tree = B.delete(tree, to_delete)
+        print('new root:', tree.key)
+        assert B.search(tree, to_delete) == None
 
 def test_delete_nonexistent():
     """Test outcome if delete is called on non-existent key."""

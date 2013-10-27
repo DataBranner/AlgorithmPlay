@@ -44,6 +44,7 @@ def insert(root, node):
         pass
 
 def preorder_traverse(root, output=None):
+    """Return a list of keys in pre-order."""
     if not output:
         output = []
     if root:
@@ -53,6 +54,7 @@ def preorder_traverse(root, output=None):
     return output
 
 def inorder_traverse(root, output=None):
+    """Return a list of keys in in-order."""
     if not output:
         output = []
     if root:
@@ -62,6 +64,7 @@ def inorder_traverse(root, output=None):
     return output
 
 def postorder_traverse(root, output=None):
+    """Return a list of keys in post-order."""
     if not output:
         output = []
     if root:
@@ -71,6 +74,7 @@ def postorder_traverse(root, output=None):
     return output
 
 def breadthfirst_traverse(root):
+    """Return a list of keys in breadth-first order."""
     output = []
     queue = D([root])
     while queue:
@@ -119,7 +123,6 @@ def delete(root, to_delete):
     #
     # Case 1: node that is a leaf.
     if not (node.left and node.right):
-        print('    Case 1')
         # If node is root, tree without node is empty.
         if not node.parent:
             return None
@@ -133,29 +136,19 @@ def delete(root, to_delete):
     # Case 2: node that has only one child.
     #    Case 2a. Node has only left child, which will replace it.
     elif not node.right:
-        print('    Case 2a')
         # 2ai. If node is not root, then parent's pointer to node is changed
         #    to node's left child.
         if node.parent:
             node.parent = fix_parent_link_to_node(node, node.left)
-#             if node.parent.left == node:
-#                 node.parent.left = node.left
-#             elif node.parent.right == node:
-#                 node.parent.right = node.left
         # 2aii. But if node is root, then node's sole child becomes root.
         else:
             return node.left
     #    Case 2b. Node has only right child, which will replace it.
     elif not node.left:
-        print('    Case 2b')
         # 2bi. If node is not root, then parent's pointer to node is changed
         #    to node's right child.
         if node.parent:
             node.parent = fix_parent_link_to_node(node, node.right)
-#             if node.parent.left == node:
-#                 node.parent.left = node.right
-#             elif node.parent.right == node:
-#                 node.parent.right = node.right
         # 2bii. But if node is root, then node's sold child becomes root.
         else:
             return node.right
@@ -163,10 +156,8 @@ def delete(root, to_delete):
     # Case 3: node has two children.  Replace with maximum node in left 
     #    subtree.
     else:
-        print('    Case 3')
         # 3a. Get maximum node in left subtree as "replacement".
         replacement = max(node.left)
-        print('    node:', node.key, 'replacement:', replacement.key)
         # 3b. If replacement has child (must be left), fix replacement's 
         #    parent so that its right child (necessarily right) points to 
         #    replacement's child.
@@ -180,7 +171,7 @@ def delete(root, to_delete):
         # replacement.
         if node.parent:
             node.parent = fix_parent_link_to_node(node, replacement)
-        # 3d. But if node is root, then node's sole child becomes root.
+        # 3d. But if node is root, then replacement becomes root.
         else:
             return replacement
     #
