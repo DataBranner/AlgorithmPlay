@@ -16,7 +16,7 @@ To avoid searching for `pattern` within each successive appropriate-lengthed sub
 
 Increasing the length of the target by a factor of 2 increases the running time by a factor of about 2, confirming linear time complexity.
 
-However, Python's built-in substring search function (`str.find(substring)`) is far faster than linear time, as shown below.
+However, Python's built-in substring search function (`str.find(substring)`) and the `re.search()` method are both far faster than linear time, as shown below.
 
 #### Using `find_substring()`
 
@@ -67,7 +67,6 @@ n = 320: 10000 loops, best of 3: 26.4 usec per loop
 ~~~
 python -m timeit -s '''
 import random, string
-import python_substrings_any as A
 n = 320
 the_targets = []
 the_patterns = []
@@ -80,6 +79,38 @@ for i in range(100):
 ''' '''
 for pattern, target in zip(the_patterns, the_targets):
     _ = target.find(pattern)
+'''
+~~~
+
+
+#### Using `re.search(pattern, target)`
+
+~~~
+n = 10:  10000 loops, best of 3: 44 usec per loop
+n = 20:  10000 loops, best of 3: 46.1 usec per loop
+n = 40:  10000 loops, best of 3: 46.8 usec per loop
+n = 80:  10000 loops, best of 3: 48.7 usec per loop
+n = 160: 10000 loops, best of 3: 55.3 usec per loop
+n = 320: 10000 loops, best of 3: 70.3 usec per loop
+~~~
+
+### Timeit code for `re.search(pattern, target)`
+
+~~~
+python -m timeit -s '''
+import random, string, re
+n = 10
+the_targets = []
+the_patterns = []
+for i in range(100):
+    the_targets.append("".join([random.choice(string.ascii_lowercase) for i in range(n)]))
+    start_index = random.randint(0, n)
+    stop_index = random.randint(start_index, n)
+    if i < 50:
+        the_patterns.append(the_targets[i][start_index:stop_index])
+''' '''
+for pattern, target in zip(the_patterns, the_targets):
+    _ = re.search(pattern, target)
 '''
 ~~~
 
