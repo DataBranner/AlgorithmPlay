@@ -13,7 +13,7 @@ def main(specified, array = None):
     array.sort()
     # 2. Find list of differences for each index.
     differences = [specified - array[i] for i in range(len(array))]
-    # 3. Math differences to original indices; each is a member of a pair.
+    # 3. Match differences to original indices; each is a member of a pair.
     matches = set(array).intersection(differences)
     matches = sorted(list(matches))
     # 4. If matches is of odd length, middle index is half of 
