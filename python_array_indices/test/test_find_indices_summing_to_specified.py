@@ -9,9 +9,9 @@ import os
 sys.path.append(os.path.join('..'))
 import find_indices_summing_to_specified as F
 
-specified = 500
-trials = 50
 the_range = 2000
+specified = the_range * 5
+trials = 50
 
 def test_all_sum_to_specified():
     for trial in range(trials):
