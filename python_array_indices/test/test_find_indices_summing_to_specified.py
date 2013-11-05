@@ -33,7 +33,7 @@ def test_all_pairs_found():
         # 2. Eliminate duplicates, sort, and pair with expected matching values.
         control_seeds = list(set(control_seeds))
         control_seeds.sort()
-        control_pairs = [(i, specified-i) for i in control_seeds]
+        control_pairs = [(i, specified - i) for i in control_seeds]
         # 3. Construct array from the control pairs.
         array = control_seeds + [pair[1] for pair in control_pairs]
         # Output of F should match the control pairs.
