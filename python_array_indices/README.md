@@ -3,7 +3,7 @@
 
 ### Problem
 
-Given an array of unique elements, plus some specified value, find pairs of array elements that sum to the specified value.
+Given an array of unique elements, along with some specified value, find pairs of array elements that sum to the specified value.
 
 ### Solution
 
