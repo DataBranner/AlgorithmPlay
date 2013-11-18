@@ -34,7 +34,12 @@
             10 11 12  =>  00 01 02 10 11 12 20 21 22
             00 01 02      
 
-    Here N = 3. Row `r` of matrix is N indices of the array, beginning at index rN. Column `c` of the matrix is index `i` of the array, `% N`. The index `i` of the array can be calculated as `i = rN + 3`.
+    Here:
+
+      * `N = 3`. 
+      * Row `r` of matrix is `N` indices of the array, beginning at index `rN`. 
+      * Column `c` of the matrix is index `i` of the array, `% N`. 
+      * The index `i` of the array can be calculated as `i = rN + 3`.
 
     Now we want to convert the array into a _rotated_ matrix. We will rotate 90° counterclockwise.
 
