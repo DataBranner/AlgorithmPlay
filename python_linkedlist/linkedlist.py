@@ -1,6 +1,6 @@
 # linkedlist.py
 # David Prager Branner
-# 20131113
+# 20131117
 
 """
 Implement simple linked list using Python hash table.
@@ -30,40 +30,37 @@ class LinkedList():
         self.kinds = {None, 'doublylinked', 'circular'}
         self.node_max_int = 10000000
         # Get initial key.
-        self.root = hex(random.randint(1, self.node_max_int))
+        self.root = None
         # If datum is list or string, insert it as sequence, index by index.
         if datum.__class__ in set([list, str]):
-            self.llist[self.root] = (datum[0], None)
-            for item in datum[1:]:
-                self.insert(item)
+            prior_node = None
+            for item in datum:
+                prior_node = self.insert(item, prior_node)
         else:
             # Initialize non-empty list with single datum.
             self.llist[self.root] = (datum, None)
 
     def insert(self, datum, prior_node = None):
-        """
-        Insert datum in new node at end; if prior_node given, then insert 
-        before that.
-
-        No obvious way to insert at head, so must write separate function for
-        that.
-        """
+        """Insert datum in new root node unless prior_node given; return key."""
         # Create node key
         key = hex(random.randint(1, self.node_max_int))
         while key in self.llist:
             key = hex(random.randint(1, self.node_max_int))
-        # If prior_node, then find prior_node; else traverse to end to insert.
-        if not prior_node:
-            # set cursor to final node of list
-            cursor = self.root
-            while cursor:
-                prior_node = cursor
-                cursor = self.llist[cursor][1]
-        # Set next_node attr of new node to that of prior_node.
-        self.llist[key] = (datum, self.llist[prior_node][1])
-        # Replace prior_node, setting next_node attr to new node key, but
-        # retaining datum.
-        self.llist[prior_node] = (self.llist[prior_node][0], key)
+        # If prior_node, then find prior_node; else insert at root.
+        if prior_node:
+            # Set next_node attribute of new node to that of prior_node.
+            self.llist[key] = (datum, self.llist[prior_node][1])
+            print('self.llist[key]:', self.llist[key])
+            # Replace prior_node, setting next_node attribute to new node key,
+            # but retaining datum.
+            self.llist[prior_node] = (self.llist[prior_node][0], key)
+            print('self.llist[prior_node]:', self.llist[prior_node])
+        else:
+            # Point root to new key, with next node as former root.
+            self.llist[key] = (datum, self.root)
+            self.root = key
+            print('set self.root =', key)
+        return key
 
     def delete(self, datum):
         """Find first node containing datum and delete."""
@@ -88,6 +85,7 @@ class LinkedList():
         del self.llist[cursor]
         # If list is now empty, delete hash table.
         self.destroy_on_empty()
+        return cursor
 
     def destroy_on_empty(self):
         """If list is empty, destroy it."""
@@ -135,15 +133,15 @@ class LinkedList():
 
     def garbage_collect(self):
         """Eliminate any unlinked nodes."""
-        # make set of all keys in traversal
-        reachable = {}
+        # Make set of all keys in traversal
+        reachable = set()
         cursor = self.root
         while cursor:
             reachable.add(cursor)
             cursor = self.llist[cursor][1]
-        # Find symmetric difference between set of reachable keys and 
-        #   set of all keys
-        # Then, for each item in difference, remove from hash table.
+        # Find symmetric difference between set of reachable keys and
+        #   set of all keys. Then, for each item in difference, remove
+        #   from hash table.
         for item in reachable.symmetric_difference(set(self.llist.keys())):
             del self.llist[item]
         # If list is now empty, destroy.
