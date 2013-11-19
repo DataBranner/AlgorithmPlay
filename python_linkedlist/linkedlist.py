@@ -1,6 +1,6 @@
 # linkedlist.py
 # David Prager Branner
-# 20131117
+# 20131119
 
 """
 Implement simple linked list using Python hash table.
@@ -38,7 +38,7 @@ class LinkedList():
                 prior_node = self.insert(item, prior_node)
         else:
             # Initialize non-empty list with single datum.
-            self.llist[self.root] = (datum, None)
+            self.insert(datum, None)
 
     def insert(self, datum, prior_node = None):
         """Insert datum in new root node unless prior_node given; return key."""
@@ -50,16 +50,15 @@ class LinkedList():
         if prior_node:
             # Set next_node attribute of new node to that of prior_node.
             self.llist[key] = (datum, self.llist[prior_node][1])
-            print('self.llist[key]:', self.llist[key])
+#            print('self.llist[key]:', self.llist[key])
             # Replace prior_node, setting next_node attribute to new node key,
             # but retaining datum.
             self.llist[prior_node] = (self.llist[prior_node][0], key)
-            print('self.llist[prior_node]:', self.llist[prior_node])
+#            print('self.llist[prior_node]:', self.llist[prior_node])
         else:
             # Point root to new key, with next node as former root.
             self.llist[key] = (datum, self.root)
             self.root = key
-            print('set self.root =', key)
         return key
 
     def delete(self, datum):

@@ -1,8 +1,8 @@
 ## Python linked-list implementation
 
-Use hash table.
+Use hash table. Each node is a single entry in a Python dictionary. The key models a pointer, and is a randomly generated hex integer, just as a real pointer would be. The value models the attributes of a node and is implemented as a tuple containing (data, key_of_next_node).
 
-Each key models a pointer, and is a randomly generated hex integer. Each value models a node and is implemented as a tuple containing (data, key_of_next_node).
+The beginning of the list is stored in `self.root`.
 
 Initialization requires at least one item in the list. Example:
 
@@ -13,7 +13,7 @@ Initialization requires at least one item in the list. Example:
 
 Functions:
 
-  1. `insert(datum[, prior_node])`: if `datum` is list or string, each index will be inserted into its own node of the linked list; otherwise, insertion is at the root. Returns key of inserted node.
+  1. `insert(datum[, prior_node])`: if `datum` is list or string, each index will be inserted into its own node of the linked list; otherwise, insertion is at the root. Returns key of inserted node. Only the initial creation of the list does not return anything, but the list itself is then accessible at `x.root`.
   1. `delete(datum)`; returns deleted key of else `None`. On empty list, calls `destroy_on_empty()`.
   1. `find(datum)`. Returns key of found node or else `None`.
   1. `length()`
