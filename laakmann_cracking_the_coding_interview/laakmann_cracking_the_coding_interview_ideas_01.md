@@ -37,9 +37,9 @@
     Here:
 
       * `N = 3`. 
-      * Row `r` of matrix is `N` indices of the array, beginning at index `rN`. 
-      * Column `c` of the matrix is index `i` of the array, `% N`. 
-      * The index `i` of the array can be calculated as `i = rN + 3`.
+      * Row `r` of matrix, given index `i` of array: `r` is `N` indices of the array, beginning at index `rN`. `r = i // N`.
+      * Column `c` of the matrix is index `i` of the array, `c = i % N`. 
+      * Index `i` of array, given row and column `r`, `c`, of matrix: `i = rN + c`.
 
     Now we want to convert the array into a _rotated_ matrix. We will rotate 90° counterclockwise.
 
@@ -49,13 +49,12 @@
             00 01 02 10 11 12 20 21 22  =>  21 11 01
                                             20 10 00
 
-    Now we 
+    Now we recalculate the values for the various dimensions:
 
-                          12 02
-            10 11 12  =>  11 01
-            00 01 02      10 00
-
-    Row 0 of rotated mat
+      * `N = 3`
+      * Row `r` of matrix, given index `i` of array: `r = i % N`.
+      * Column `c` of matrix, given index `i` of array: `c = N - (i // N)`.
+      * Index `i` of array, given row and column `r`, `c`, of matrix: `i = N(N - 1 - c) + r.
 
   * 1.7: Write an algorithm such that if an element in an MxN matrix is 0, its entire row and column is set to 0.
 
