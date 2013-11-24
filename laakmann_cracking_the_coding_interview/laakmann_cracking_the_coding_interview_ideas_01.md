@@ -23,6 +23,14 @@
 
   * 1.5: Write a method to replace all spaces in a string with ‘%20’. O(n log n)`.
 
+    1. In Python, list comprehension can traverse string once and then use `join()` to reassemble into string:
+   
+        ''.join([i if i != ' ' else '%20' for i in s])
+
+    Comment (Luu): Why is this `O(n lg n)`? I believe you can do that in linear time.
+    
+    Reply: Don't know why Laakman requests `O(n lg n)`. My solution is linear.
+
   * 1.6: Given an image represented by an NxN matrix, where each pixel in the image is 4 bytes, write a method to rotate the image by 90 degrees Can you do this in place?
 
     1. The key to in-place solution is how the array is read as a matrix. Given
