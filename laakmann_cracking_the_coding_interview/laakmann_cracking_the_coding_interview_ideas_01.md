@@ -21,7 +21,7 @@
 
     1. In Python, sort each string and assert that they are equal.
 
-  * 1.5: Write a method to replace all spaces in a string with ‘%20’. O(n log n)`.
+  * 1.5: Write a method to replace all spaces in a string with `‘%20’`. `O(n log n)`.
 
     1. In Python, list comprehension can traverse string once and then use `join()` to reassemble into string:
 
