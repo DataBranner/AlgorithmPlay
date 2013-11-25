@@ -23,9 +23,10 @@
 
   * 1.5: Write a method to replace all spaces in a string with `‘%20’`. `O(n log n)`.
 
-    1. In Python, list comprehension can traverse string once and then use `join()` to reassemble into string:
+    1. In Python, list comprehension can traverse string `s` once and then use `join()` to reassemble into string:
 
-            ''.join([i if i != ' ' else '%20' for i in s])
+            def html_escape_spaces(s):
+                return ''.join([i if i != ' ' else '%20' for i in s])
 
     Comment (Luu): Why is this `O(n lg n)`? I believe you can do that in linear time.
     
