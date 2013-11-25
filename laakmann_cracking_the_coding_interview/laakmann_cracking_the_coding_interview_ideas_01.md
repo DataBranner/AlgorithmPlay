@@ -65,6 +65,9 @@
       * Index `i` of array, given row and column `r`, `c`, of matrix: `i = N(N - 1 - c) + r.
 
   * 1.7: Write an algorithm such that if an element in an MxN matrix is 0, its entire row and column is set to 0.
+  
+    * This must mean that we first find all of the zeroes and then modify each affected row and column. After the first such modification, all rows and columns would have a zero and so on a second pass the whole matrix would have to be zeroed, which seems an unlikely goal. So we have to separate the checking for zeroes from the modification of affected rows and columns.
+    * We would like to avoid modifying any element more than once, for efficiency's sake. We can do this by storing each row and column to be modified in a set, avoiding redundancy.
 
   * 1.8: Assume you have a method isSubstring which checks if one word is a substring of another Given two strings, s1 and s2, write code to check if s2 is a rotation of s1 using only one call to isSubstring (i e , “waterbottle” is a rotation of “erbottlewat”).
 
