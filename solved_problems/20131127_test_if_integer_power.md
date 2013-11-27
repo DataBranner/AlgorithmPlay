@@ -34,6 +34,7 @@ def is_int_power(n, k):
     return True
 ~~~
 Output:
+
     In [6]: is_int_power(79**999, 79)
     Out[6]: True
     
