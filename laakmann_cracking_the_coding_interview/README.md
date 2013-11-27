@@ -7,6 +7,12 @@
  * 1.5: [http://git.io/eBbKDQ](http://git.io/eBbKDQ)
  * 1.6: [http://git.io/74wc2w](http://git.io/74wc2w)
  * 1.7: Partially solved at [http://git.io/X610qA](http://git.io/X610qA)
- * 1.8: ()[]
+ * 1.8: []()
+ 
+ * 2.1: []()
+ * 2.2: [http://git.io/qzyK9Q](http://git.io/qzyK9Q)
+ * 2.3: []()
+ * 2.4: []()
+ * 2.5: []()
 
 [end]
