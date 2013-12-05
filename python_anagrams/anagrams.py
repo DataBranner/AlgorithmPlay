@@ -17,7 +17,7 @@ def anagrams(path = 'DATA', filename = 'dict.txt',
     with open(os.path.join(path, filename)) as f:
         data = f.read()
     data = data.split()
-    data = data[:2000]
+#    data = data[:2000]
     # sort into sets, one set per given length of word; list `sets`
     #       (minlength <= length <= maxlength)
     for item in data:
@@ -32,13 +32,24 @@ def anagrams(path = 'DATA', filename = 'dict.txt',
     for one_set in sets_by_length:
         # begin while loop until set is empty
         while one_set:
-            word = one_set.pop()
-        # pop a word, delete punctuation, sort its chars; we call this "target"
-        # create new list for the target
-        # iterate through remaining words and:
-            # sort each
-            # if it matches target, add it to target's list and pop it from set
-        # if target's list is > length 1, add to else abandon
+            # pop a word, strip punctuation, sort its chars; 
+            # we call this "target"
+            target = one_set.pop()
+            target = target.lower().strip('-')
+            # create new list for the target
+            targets_list = [target]
+            # iterate through remaining words and:
+            for word in one_set:
+                # strip of punctuation and sort each
+                word_cleaned = word.lower().strip('-')
+                word_cleaned = sorted(list(word_cleaned))
+                # if it matches target, 
+                #     add it to target's list and pop it from set
+                if word_cleaned == target:
+                    targets_list.append(word_cleaned)
+                    one_set.pop(word)
+            # if target's list is > length 1, add to `to_return`, else abandon
+            if len(targets_list) > 1:
+                to_return.append(targets_list)
     print(sets_by_length) # debug
     return to_return
-    
