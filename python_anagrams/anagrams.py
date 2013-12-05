@@ -5,12 +5,15 @@
 
 import os, sys
 
-def anagrams(filename = 'dict.txt', minlength = 4, maxlength = 6):
+def anagrams(path = 'DATA', filename = 'dict.txt', 
+        minlength = 4, maxlength = 6):
     # prepare `to_return`: list of lists to be returned
     to_return = []
     # get data from file
-    with open(os.path.join('DATA', filename)) as f:
+    with open(os.path.join(path, filename)) as f:
         data = f.read()
+    data = data.split()
+    print(data[9999:10005])
     # sort into sets, one set per given length of word; list `sets`
     #       (minlength <= length <= maxlength)
     # for each set in `sets`: 
