@@ -4,6 +4,7 @@
 
 def anagrams(minlength = 4, maxlength = 6):
     # prepare `to_return`: list of lists to be returned
+    to_return = []
     # get data from file
     # sort into sets, one set per given length of word; list `sets`
     #       (minlength <= length <= maxlength)
@@ -15,4 +16,5 @@ def anagrams(minlength = 4, maxlength = 6):
             # sort each
             # if it matches target, add it to target's list and pop it from set
         # if target's list is > length 1, add to else abandon
-    # return `to_return`
+    return to_return
+    
