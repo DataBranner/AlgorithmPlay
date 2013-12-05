@@ -9,7 +9,7 @@ Both return in linear time, but the former is significantly faster.
 
 ### Timeit tabulated results
 
-** Using `[None] * cardinality` **
+**Using `[None] * cardinality`**
 
 | cardinality | time per loop | factor increase, t/cardinality |
 | -----------:| -------------:|:------------------------------:|
@@ -21,7 +21,7 @@ Both return in linear time, but the former is significantly faster.
 | 10000000 | 44   msec | 1.8 |
 | 100000000 | 496  msec | 1.1 |
 
-** Using `[None for i in range(cardinality)]` **
+**Using `[None for i in range(cardinality)]`**
 
 | cardinality | time per loop | factor increase, t/cardinality |
 | -----------:| -------------:|:------------------------------:|
