@@ -12,44 +12,57 @@ def anagrams(path = 'DATA', filename = 'dict.txt',
     to_return = []
     number_sets = maxlength - minlength + 1
     sets_by_length = [set() for i in range(number_sets)]
-    print(sets_by_length)
+#    print(sets_by_length)
     # get data from file
     with open(os.path.join(path, filename)) as f:
         data = f.read()
     data = data.split()
-#    data = data[:2000]
+#    data = data[:20000]
     # sort into sets, one set per given length of word; list `sets`
     #       (minlength <= length <= maxlength)
     for item in data:
         index = len(item)
         if minlength <= index <= maxlength:
             # sort into correct set
-            print(item, index)
+#            print(item, index)
 #            print('target set:', sets_by_length[index - minlength])
             sets_by_length[index - minlength].add(item)
-    print(sets_by_length) # debug
+#    print(sets_by_length) # debug
     # for each set in `sets`: 
     for one_set in sets_by_length:
+        print('Now treating words of length', len(one_set))
         # begin while loop until set is empty
         while one_set:
             # pop a word, strip punctuation, sort its chars; 
             # we call this "target"
-            target = one_set.pop()
-            target = target.lower().strip('-')
             # create new list for the target
+            target = one_set.pop()
             targets_list = [target]
-            # iterate through remaining words and:
-            for word in one_set:
-                # strip of punctuation and sort each
-                word_cleaned = word.lower().strip('-')
-                word_cleaned = sorted(list(word_cleaned))
+            target_cleaned = clean_and_alphabetize(target)
+#            print('cleaned target:', target_cleaned)
+            # iterate through remaining words
+            list_of_one_set = list(one_set)
+            for word in list_of_one_set:
+                # strip off punctuation and sort each
+                word_cleaned = clean_and_alphabetize(word)
                 # if it matches target, 
-                #     add it to target's list and pop it from set
-                if word_cleaned == target:
-                    targets_list.append(word_cleaned)
-                    one_set.pop(word)
+                #     add it to target's list and remove it from set
+                if word_cleaned == target_cleaned:
+                    targets_list.append(word)
+                    one_set.remove(word)
+#                    print('word', word, 'removed from set')
+#                    print('target', target, 'added')
+                    print('.', end='')
             # if target's list is > length 1, add to `to_return`, else abandon
-            if len(targets_list) > 1:
-                to_return.append(targets_list)
-    print(sets_by_length) # debug
-    return to_return
+            length_of_list = len(targets_list)
+            if length_of_list > 1:
+                to_return.append((length_of_list, targets_list))
+#                print('length', length_of_list, 'targets_list', targets_list, 
+#                        'added')
+#    print(sets_by_length) # debug
+    to_return.sort(reverse = True)
+    return to_return[0:20]
+
+def clean_and_alphabetize(word):
+    cleaned = ''.join(word.lower().split('-'))
+    return ''.join(sorted(list(cleaned)))
