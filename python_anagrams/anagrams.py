@@ -1,13 +1,14 @@
 # anagrams.py
 # David Prager Branner
-# 20131205
+# 20131205, works.
+# Python3
 """Given a dictionary, output the top 20 most "anagrammable" 4-, 5-, and
 6-letter words."""
 
 import os
 
-def anagrams(path = 'DATA', filename = 'dict.txt', 
-        minlength = 4, maxlength = 6, how_many_top_to_print = 20):
+def main(path = 'DATA', filename = 'dict.txt', 
+        minlength = 4, maxlength = 6, top_quant_to_print = 20):
     # Prepare variables.
     number_sets = maxlength - minlength + 1
     anagrams_by_length = [[] for i in range(number_sets)]
@@ -16,7 +17,6 @@ def anagrams(path = 'DATA', filename = 'dict.txt',
     with open(os.path.join(path, filename)) as f:
         data = f.read()
     data = data.split()
-#    data = data[:50000]
     # Sort into sets, one set per given length of word; list `sets`
     #       (minlength <= length <= maxlength)
     #
@@ -30,8 +30,8 @@ def anagrams(path = 'DATA', filename = 'dict.txt',
             # Sort into correct set
             sets_by_length[index - minlength].add(item)
     for length, one_set in enumerate(sets_by_length):
-        print('\nTop 20 most anagrammable {}-letter words:\n'.
-                format(length + minlength))
+        print('\nTop {} most anagrammable {}-letter words:\n'.
+                format(top_quant_to_print, length + minlength))
         # Begin while loop until set is empty
         while one_set:
             # Pop a word ("target"), clean it and create new list for it.
@@ -50,12 +50,20 @@ def anagrams(path = 'DATA', filename = 'dict.txt',
             # If target's list is > length 1, add to `to_return`, else abandon
             length_of_list = len(targets_list)
             if length_of_list > 1:
+                # We save each list of anagrams as a tuple, the first element
+                # of which is the size; we can then reverse-sort to return the
+                # lists, largest first.
                 anagrams_by_length[length].append(
                         (length_of_list, targets_list))
-        for i in range(how_many_top_to_print):
+        for i in range(top_quant_to_print):
             to_print = sorted(anagrams_by_length[length], reverse = True)[:20]
             print(to_print[i][1], '\n')
 
 def clean_and_alphabetize(word):
+    # In future, we may like to check file for any non-ASCII characters and add
+    # to a string of to-strip characters.
     cleaned = ''.join(word.lower().split('-'))
     return ''.join(sorted(list(cleaned)))
+
+if __name__ == '__main__':
+    main()
