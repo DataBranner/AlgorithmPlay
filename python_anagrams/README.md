@@ -44,7 +44,7 @@ Given a "dictionary" (in the conventional natural language sense), output the to
 
 ### Design
 
-Anagrammic equivalence between two words is determined by stripping punctuation, forcing to all lower-case, and sorting the characters — producing and "alphagram" of each word. 
+Anagrammic equivalence between two words is determined by stripping punctuation, converting all characters to lower-case, and sorting the characters — producing an "alphagram" of each word. See "Decisions" below for more information.
 
 There are three versions of the program: 
 
@@ -52,7 +52,7 @@ There are three versions of the program:
  * `anagrams_1.py`, which iterates through sets of words to find anagrams (slower than `anagrams.py`);
  * `anagrams_2.py`, a much less efficient version of `anagrams_1.py`.
 
-`anagrams.py` is by far the most efficient version, as shown in the Timing section, below.
+File `anagrams.py` is by far the most efficient version, as shown in the Timing section below.
 
 ### Decisions
 
@@ -63,19 +63,19 @@ There are three versions of the program:
 ### Timing
 
 ~~~
-time -p ./anagrams.py
+time ./anagrams.py
 ...
-real 0.86
-user 0.84
-sys 0.01
+real    0m0.881s
+user    0m0.861s
+sys	    0m0.016s
 
-time -p ./anagrams_1.py
+time ./anagrams_1.py
 ...
 real 16.85
 user 16.83
 sys 0.02
 
-time -p ./anagrams_2.py
+time ./anagrams_2.py
 ...
 real 364.65
 user 364.56
