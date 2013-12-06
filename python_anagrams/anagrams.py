@@ -50,7 +50,7 @@ def main(path = 'DATA', filename = 'dict.txt',
         for the_key in sorted(hits, reverse = True):
             alphagrams = hits[the_key]
             for item in alphagrams:
-                if counter <= top_quant_to_print:
+                if counter < top_quant_to_print:
                     counter += 1
                     print(one_dict[item])
 
