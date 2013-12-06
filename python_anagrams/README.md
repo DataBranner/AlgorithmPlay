@@ -39,7 +39,7 @@ Given a dictionary, output the top 20 most "anagrammable" 4-, 5-, and 6-letter w
 ### To run
 
 ~~~
-python3 anagrams.py
+./anagrams.py
 ~~~
 
 ### Decisions
@@ -47,6 +47,24 @@ python3 anagrams.py
  1. Data file in `DATA/`.
  1. I find two words containing hyphens, so all words must be compared in a "cleaned" version only — stripped of hyphens and made lower-case. But words found to be anagrams must still be added in their original, uncleaned forms, i.e, with any hyphens and with original capitalization.
  1. Please introspect to see a few optional arguments to `main()`.
+
+### Timing
+
+There are two versions, `anagrams.py` and the original but much less efficient `anagrams_1.py`:
+
+~~~
+time -p ./anagrams.py
+...
+real 16.85
+user 16.83
+sys 0.02
+
+time -p ./anagrams_1.py
+...
+real 364.65
+user 364.56
+sys 0.10
+~~~
 
 ### Output
 
