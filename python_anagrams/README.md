@@ -71,15 +71,15 @@ sys	    0m0.016s
 
 time ./anagrams_1.py
 ...
-real 16.85
-user 16.83
-sys 0.02
+real    0m16.755s
+user    0m16.731s
+sys	    0m0.022s
 
 time ./anagrams_2.py
 ...
-real 364.65
-user 364.56
-sys 0.10
+real    5m56.289s
+user    5m56.191s
+sys     0m0.104s
 ~~~
 
 ### Output
