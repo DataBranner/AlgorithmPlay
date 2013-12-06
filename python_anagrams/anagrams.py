@@ -7,12 +7,11 @@
 
 import os
 
-def main(path = 'DATA', filename = 'dict.txt', 
+def main(path = 'DATA', filename = 'dict.txt',
         minlength = 4, maxlength = 6, top_quant_to_print = 20):
     # Prepare variables.
     number_sets = maxlength - minlength + 1
-    anagrams_by_length = [[] for i in range(number_sets)]
-    sets_by_length = [set() for i in range(number_sets)]
+    alphagrams_by_length = [{} for i in range(number_sets)]
     # Get data from file
     with open(os.path.join(path, filename)) as f:
         data = f.read()
@@ -21,44 +20,43 @@ def main(path = 'DATA', filename = 'dict.txt',
     #       (minlength <= length <= maxlength)
     #
     # Remember that we have (20131205) two words containing hyphens, so we
-    # always work with a cleaned version of a given word (see
-    # function clean_and_alphabetize(), below) when length or comparisons are
-    # done.
+    # always work with a cleaned alphagram of a given word (see function
+    # make_alphagram(), below). We use these forms as the keys in the
+    # several dictionaries contained in alphagrams_by_length, but we need to be
+    # able to return the original words, too, so we can't discard them.
     for item in data:
-        item_cleaned = clean_and_alphabetize(item)
+        item_cleaned = make_alphagram(item)
         index = len(item_cleaned)
         if minlength <= index <= maxlength:
-            # Sort into correct set
-            sets_by_length[index - minlength].add((item_cleaned, item))
-    for length, one_set in enumerate(sets_by_length):
+            # Sort into correct dictionary.
+            if item_cleaned in alphagrams_by_length[index-minlength]:
+                alphagrams_by_length[index-minlength][item_cleaned].extend(
+                        [item])
+            else:
+                alphagrams_by_length[index-minlength][item_cleaned] = [item]
+    for length, one_dict in enumerate(alphagrams_by_length):
         print('\nTop {} most anagrammable {}-letter words:\n'.
                 format(top_quant_to_print, length + minlength))
-        # Begin while loop until set has been emptied.
-        while one_set:
-            # Pop a word ("target"), clean it and create new list for it.
-            target_cleaned, target = one_set.pop()
-            targets_list = [target]
-            # Iterate through remaining words in current set.
-            list_of_one_set = list(one_set)
-            for word_cleaned, word in list_of_one_set:
-                # If it matches target,
-                #     add it to target's list and remove it from set
-                if word_cleaned == target_cleaned:
-                    targets_list.append(word)
-                    one_set.remove((word_cleaned, word))
-            # If target's list is > length 1, add to `to_return`, else abandon
-            length_of_list = len(targets_list)
-            if length_of_list > 1:
-                # We save each list of anagrams as a tuple, the first element
-                # of which is the size; we can then reverse-sort to return the
-                # lists, largest first, when needed.
-                anagrams_by_length[length].append(
-                        (length_of_list, targets_list))
-        for i in range(top_quant_to_print):
-            to_print = sorted(anagrams_by_length[length], reverse = True)[:20]
-            print(to_print[i][1], '\n')
+        # Count the number of alphagrams in each item in dict.
+        hits = {}
+        for item in one_dict:
+            item_length = len(one_dict[item])
+            if item_length in hits:
+                hits[item_length].extend([item])
+            else:
+                hits[item_length] = [item]
+        # Return the anagraphs corresponding to the top alphagrams in the dict.
+        counter = 0
+        for the_key in sorted(hits, reverse = True):
+            alphagrams = hits[the_key]
+            for item in alphagrams:
+                if counter <= top_quant_to_print:
+                    counter += 1
+                    print(one_dict[item])
 
-def clean_and_alphabetize(word):
+    return
+
+def make_alphagram(word):
     # In future, we may like to check file for any non-ASCII characters and add
     # to a string of to-strip characters.
     cleaned = ''.join(word.lower().split('-'))
