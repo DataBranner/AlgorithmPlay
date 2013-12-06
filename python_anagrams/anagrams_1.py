@@ -1,5 +1,5 @@
 #! /usr/local/bin/python3
-# anagrams_2.py
+# anagrams_1.py
 # David Prager Branner
 # 20131205, works.
 """Given a dictionary, output the top 20 most "anagrammable" 4-, 5-, and
