@@ -44,8 +44,8 @@ Given a dictionary, output the top 20 most "anagrammable" 4-, 5-, and 6-letter w
 
 ### Decisions
 
- 1. Data file in `DATA/`.
- 1. I find two words containing hyphens, so all words must be compared in a "cleaned" version only — stripped of hyphens and made lower-case. But words found to be anagrams must still be added in their original, uncleaned forms, i.e, with any hyphens and with original capitalization.
+ 1. Data file in `DATA/`. Unlike the example in the statement of the problem, this version does not accept a source dictionary file on the command line.
+ 1. I find two words containing hyphens in my dictionary file, so all words must be compared in a "cleaned" version only — stripped of hyphens and made lower-case. But words found to be anagrams must still be added in their original, uncleaned forms, i.e, with any hyphens and with original capitalization.
  1. Please introspect to see a few optional arguments to `main()`.
 
 ### Timing
