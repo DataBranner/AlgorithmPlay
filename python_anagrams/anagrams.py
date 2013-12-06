@@ -1,7 +1,7 @@
+#! /usr/local/bin/python3
 # anagrams.py
 # David Prager Branner
 # 20131205, works.
-# Python3
 """Given a dictionary, output the top 20 most "anagrammable" 4-, 5-, and
 6-letter words."""
 
@@ -32,13 +32,13 @@ def main(path = 'DATA', filename = 'dict.txt',
     for length, one_set in enumerate(sets_by_length):
         print('\nTop {} most anagrammable {}-letter words:\n'.
                 format(top_quant_to_print, length + minlength))
-        # Begin while loop until set is empty
+        # Begin while loop until set has been emptied.
         while one_set:
             # Pop a word ("target"), clean it and create new list for it.
             target = one_set.pop()
             target_cleaned = clean_and_alphabetize(target)
             targets_list = [target]
-            # Iterate through remaining words in set
+            # Iterate through remaining words in current set.
             list_of_one_set = list(one_set)
             for word in list_of_one_set:
                 word_cleaned = clean_and_alphabetize(word)
@@ -52,7 +52,7 @@ def main(path = 'DATA', filename = 'dict.txt',
             if length_of_list > 1:
                 # We save each list of anagrams as a tuple, the first element
                 # of which is the size; we can then reverse-sort to return the
-                # lists, largest first.
+                # lists, largest first, when needed.
                 anagrams_by_length[length].append(
                         (length_of_list, targets_list))
         for i in range(top_quant_to_print):
