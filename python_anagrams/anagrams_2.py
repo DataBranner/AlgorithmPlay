@@ -1,5 +1,5 @@
 #! /usr/local/bin/python3
-# anagrams_2.py
+# anagrams_1.py
 # David Prager Branner
 # 20131205, works.
 """Given a dictionary, output the top 20 most "anagrammable" 4-, 5-, and
@@ -29,23 +29,25 @@ def main(path = 'DATA', filename = 'dict.txt',
         index = len(item_cleaned)
         if minlength <= index <= maxlength:
             # Sort into correct set
-            sets_by_length[index - minlength].add((item_cleaned, item))
+            sets_by_length[index - minlength].add(item)
     for length, one_set in enumerate(sets_by_length):
         print('\nTop {} most anagrammable {}-letter words:\n'.
                 format(top_quant_to_print, length + minlength))
         # Begin while loop until set has been emptied.
         while one_set:
             # Pop a word ("target"), clean it and create new list for it.
-            target_cleaned, target = one_set.pop()
+            target = one_set.pop()
+            target_cleaned = clean_and_alphabetize(target)
             targets_list = [target]
             # Iterate through remaining words in current set.
             list_of_one_set = list(one_set)
-            for word_cleaned, word in list_of_one_set:
+            for word in list_of_one_set:
+                word_cleaned = clean_and_alphabetize(word)
                 # If it matches target,
                 #     add it to target's list and remove it from set
                 if word_cleaned == target_cleaned:
                     targets_list.append(word)
-                    one_set.remove((word_cleaned, word))
+                    one_set.remove(word)
             # If target's list is > length 1, add to `to_return`, else abandon
             length_of_list = len(targets_list)
             if length_of_list > 1:
