@@ -7,8 +7,8 @@
 
 import os
 
-def main(path = 'DATA', filename = 'dict.txt',
-        minlength = 4, maxlength = 6, top_quant_to_print = 20):
+def main(path='DATA', filename='dict.txt',
+        minlength=4, maxlength=6, top_quant_to_print=20):
     # Prepare variables.
     number_sets = maxlength - minlength + 1
     alphagrams_by_length = [{} for i in range(number_sets)]
