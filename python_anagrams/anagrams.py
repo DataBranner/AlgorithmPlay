@@ -54,8 +54,6 @@ def main(path = 'DATA', filename = 'dict.txt',
                     counter += 1
                     print(one_dict[item])
 
-    return
-
 def make_alphagram(word):
     # In future, we may like to check file for any non-ASCII characters and add
     # to a string of to-strip characters.
