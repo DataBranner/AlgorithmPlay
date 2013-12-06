@@ -197,5 +197,15 @@ Top 20 most anagrammable 6-letter words:
 
 ['arrect', 'recart', 'Carter', 'carter', 'crater', 'tracer']
 ~~~
+
+### Another idea
+
+Another approach I thought of is to use a dictionary to count anagrams — one dictionary per word-length. Dictionaries are useful for counting things.
+
+That saves time over repeatedly running through each set of words looking for anagrams, as in my code. You place each distinct alphagram into a key, and its value is a list of all the words that are anagrams of it. In this case, you only need to treat each word a total of once, in order to insert it into dictionary.
+
+The slow part would be determining the largest lists in each dictionary — as far as I can see, you have to traverse the whole dictionary once, keeping track of the `top_quant_to_print = 20` longest values by one means or another. You can do this step with a second dictionary, maybe, using the cardinality of each value in the first dictionary as the key in the second dictionary; the value in the second dictionary would be the list of alphagram-keys from the first dictionary.
+
+To return the top `top_quant_to_print = 20` values, you convert the keys of the second dictionary to a list, sort, and then retrieve the pertinent alphagrams from the high end of the sorted list. Those alphagrams allow you to retrieve the actual words in question from the first dictionary.
  
- [end]
+[end]
