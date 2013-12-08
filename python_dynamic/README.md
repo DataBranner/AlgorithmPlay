@@ -11,6 +11,8 @@ Run in interpreter as
 
 The program first calculates the answer as a combinatorics problem: number of paths = `C(X+Y, X)` and then enumerates all the solutions and counts them. For `X+Y < 11`, the time required for the enumeration component on my computer is unreasonably long.
 
+In truth, neither of these solutions is being done as expected in the Laakman book — the solution is supposed to involve dynamic programming.
+
 Finally, the program confirms that the combinatoric and enumerated solutions are the same.
 
 [end]
