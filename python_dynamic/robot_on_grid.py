@@ -11,6 +11,7 @@ there for the robot to go from (0,0) to (X,Y)?
 import itertools
 import math
 import time
+import sys
 
 def main(X, Y):
     # The robot must travel X steps right and Y steps down in any case.
@@ -29,6 +30,7 @@ def main(X, Y):
     #
     # 2. By enumeration; to check calculation. But very inefficient enumeration.
     print('    by enumeration: ', end='')
+    sys.stdout.flush()
     start_time = time.time()
     all_paths = [item for item in itertools.permutations(path)]
     as_sets = len(set(all_paths))
