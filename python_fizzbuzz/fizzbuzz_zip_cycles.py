@@ -4,11 +4,11 @@
 
 from itertools import cycle
 
-def x(n, word):
+def generate_feed(n, word):
     return [''] * (n - 1) + [word]
 
 for fizz, buzz, num in zip(
-        cycle(x(3, 'Fizz')), 
-        cycle(x(5, 'Buzz')), 
+        cycle(generate_feed(3, 'Fizz')), 
+        cycle(generate_feed(5, 'Buzz')), 
         range(1, 101)):
     print(fizz + buzz or num)

@@ -10,12 +10,12 @@ This directory contains three different implementations of FizzBuzz. The princip
 
         from itertools import cycle
         
-        def x(n, word):
+        def generate_feed(n, word):
             return [''] * (n - 1) + [word]
         
         for fizz, buzz, quack, foo, num in zip(
-                cycle(x(3, 'Fizz')), 
-                cycle(x(5, 'Buzz')), 
+                cycle(generate_feed(3, 'Fizz')), 
+                cycle(generate_feed(5, 'Buzz')), 
                 range(1, 101)):
             print(fizz + buzz + quack + foo or num)
 
@@ -23,14 +23,14 @@ This directory contains three different implementations of FizzBuzz. The princip
 
         from itertools import cycle
         
-        def x(n, word):
+        def generate_feed(n, word):
             return [''] * (n - 1) + [word]
         
         for fizz, buzz, quack, foo, num in zip(
-                cycle(x(3, 'Fizz')), 
-                cycle(x(5, 'Buzz')), 
-                cycle(x(7, 'Quack')), 
-                cycle(x(11, 'Foo')), 
+                cycle(generate_feed(3, 'Fizz')), 
+                cycle(generate_feed(5, 'Buzz')), 
+                cycle(generate_feed(7, 'Quack')), 
+                cycle(generate_feed(11, 'Foo')), 
                 range(1, 101)):
             print(fizz + buzz + quack + foo or num)
 
