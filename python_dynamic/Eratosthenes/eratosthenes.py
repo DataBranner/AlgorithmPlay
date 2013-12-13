@@ -7,11 +7,14 @@ import math
 from collections import deque
 
 def sift(number_of_primes):
-    # 1. Figure size of initial sieve. 
-    # Can estimate nth prime <  n * log n * 1.21
-    upper_bound = int(number_of_primes * math.log(number_of_primes) * 1.21) + 1
-    # 2. Prepare array. Note: we wonder if a generator expression would save 
-    # time here over a comprehension.
+    # 1. Figure size of initial sieve.
+    # Can estimate nth prime <  n * log n * 1.25.
+    if number_of_primes == 1:
+        return [2]
+    factor = 1.25
+    upper_bound = (
+            int(number_of_primes * math.log(number_of_primes) * factor)  + 1)
+    # 2. Prepare array.
     sieve = deque([i for i in range(upper_bound+1)])
     sieve[0] = None
     sieve[1] = None
