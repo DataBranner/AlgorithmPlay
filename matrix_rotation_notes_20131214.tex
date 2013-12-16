@@ -1,0 +1,315 @@
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+
+% THIS TEMPLATE IS DATED 20111117
+
+\documentclass[12pt]{scrartcl}
+\usepackage[tmargin=1in, bmargin=1in, lmargin=0.5in, rmargin=0.5in]{geometry}
+\geometry{letterpaper}
+%\geometry{landscape} % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage[fleqn,reqno]{amsmath}
+\renewcommand\minalignsep{2cm}
+\usepackage{mathspec}			% replaces amssymb; do not use unicode-math
+\usepackage{url}		 			% allows normal display of URLs
+\usepackage{datetime}		% allows \currenttime
+\usepackage{verbatim} % allows control of font-size of verbatim text (disadvantage: "\" must be replaced with "\(\backslash\)"
+\usepackage{txfonts}				% allows use of \mathbb forms
+	\normalfont
+	\usepackage[T1]{fontenc}
+	\usepackage[LY1]{fontenc}
+	\usepackage{textcomp}
+
+
+\usepackage{mdwtab}				% allows the use of footnotes in tables
+\usepackage[hang,flushmargin]{footmisc}	% makes footnotes flush with margin, etc.
+\usepackage{setspace}			% control of line spacing
+\usepackage[normalem]{ulem}		% underlining (with ``normal emphasis'' retained)
+\usepackage{alltt}
+\usepackage{comment}				% allows
+%\usepackage{paralist}			% enables more compact lists; use compactitem, compactenum, and compactdesc
+%\usepackage{enumitem}			% enables more flexible spacing in lists
+%\setitemize{itemsep=0pt}
+%\setlist{nolistsep,leftmargin=0.1in}
+%\setlist{nolistsep}
+\usepackage{longtable}		% allows breaking of tables across pages with \begin{longtable}
+\usepackage{tikz}			% allows much graphical control
+\usepackage{pgflibraryshapes}	% allows use of ellipse in tikz
+
+%\usepackage[italic,noendash]{mathastext}	% propagates document text font to math mode; use option italic to get italic text in math mode
+
+\setromanfont[Scale=1,Mapping=tex-text]{TeX Gyre Termes}
+\setsansfont[Scale=MatchLowercase,Mapping=tex-text]{TeX Gyre Heros Cn}
+
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+%\newcommand\gr[3]{\raisebox{#3\height}{\scalebox{#2}{\includegraphics{#1}}}}
+\newcommand\gr[2]{\scalebox{#2}{\includegraphics{#1}}}
+\newcommand\sect[1]{\section*{#1}\markboth{#1}{#1}}
+%\newcommand\subsect[1]{\subsection*{#1}\markboth{\thesection #1}{\thesection #1}}
+
+
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\fancyhead[RO]{Branner: Matrix Transformation Notes}
+\fancyhead[LE]{Branner: Matrix Transformation Notes}
+\fancyfoot[C]{\thepage}
+%\headheight-14.5pt		% this value chosen in response to warning messages
+
+\usepackage{scrextend}
+%\usepackage[justification=centering,width=.7\textwidth]{caption}		% allows removal of figure numbers with \caption, and better formatting of captions
+% package caption causes error with screxend:
+%     Command \l@addto@macro already defined.
+% see \setcapwidth[justification]{width} in screxend docs
+\KOMAoption{captions}{belowfigure}
+\setcapwidth[c]{.7\textwidth}			% positions whole caption
+\setcapindent{0pt}
+\addtokomafont{caption}{\centering}	% justification of caption text only
+\renewcommand*{\figureformat}{}		% this removes figure number
+\renewcommand*{\captionformat}{}		% this removes ``Figure''
+
+\usepackage{textcomp}			% required for listings with upquote
+\usepackage{listings}			% allows good verbatim text for code (only)
+\lstset{
+  language=Python,
+  showstringspaces=false,
+  formfeed=\newpage,
+  upquote=true,
+  breaklines=true,
+  tabsize=4,
+  commentstyle=\itshape,
+  basicstyle=\ttfamily,
+  morekeywords={models, lambda, forms}
+}
+
+
+\frenchspacing
+\raggedright
+
+\parskip12pt
+
+\title{Matrix Transformation Notes}
+\author{David Prager Branner}
+\date{14 December, 2013}
+
+
+\begin{document}
+\maketitle
+
+\section{Rotation}
+
+Make a model of how the various kinds of points move when a matrix is rotated:
+
+% side by side figures
+% code after http://tex.stackexchange.com/a/1645/3935
+\setcapwidth[c]{.2\textwidth}			% positions whole caption
+\begin{figure}[htbp]
+ \centering%
+ \begin{minipage}[b]{.3\linewidth}
+  \centering%
+   \begin{tabular}{|>{\centering}p{.35in}|>{\centering}p{.35in}|>{\centering}p{.35in}|}\hline
+    a & f & b \\ 
+    (0,0) & (1,0) & (2,0) \\ \hline
+    & e & \\ 
+    \dots & (1,1) & \dots \\ \hline
+    d & & c \\ 
+    (0,2) & \dots & (2,2) \\ \hline
+   \end{tabular}
+  \caption{Initial state}
+ \end{minipage}%
+% \hfill%
+ \begin{minipage}[b]{.05\linewidth}
+  \centering%
+   \(\longrightarrow\)
+   \quad \\
+   \quad \\
+   \quad \\
+   \quad \\
+   \quad \\
+ \end{minipage}%
+% \hfill%
+ \begin{minipage}[b]{.3\linewidth}
+  \centering%
+   \begin{tabular}{|>{\centering}p{.35in}|>{\centering}p{.35in}|>{\centering}p{.35in}|}\hline
+    d &  & a \\ 
+    (0,0) & \dots & (2,0) \\ \hline
+    & e & f \\ 
+    \dots & (1,1) & (2,1) \\ \hline
+    c & \dots & b \\ 
+    (0,2) & & (2,2) \\ \hline
+   \end{tabular}
+  \caption{After 90° rotation clockwise}
+ \end{minipage}
+\end{figure}
+\setcapwidth[c]{.7\textwidth}			% positions whole caption
+
+It may be useful to tabulate these single-point movements, to make your function easier to check:
+
+\begin{table}[htdp]
+ \begin{center}
+  \begin{tabular}{|c|c|c|c|}\hline
+   type & label & location & location \\ \hline
+   corner & a & (0,0) & (2,0) \\ \hline
+   corner & b & (2,0) & (2,2) \\ \hline
+   corner & c & (2,2) & (0,2) \\ \hline
+   corner & d & (0,2) & (0,0) \\ \hline
+   center & e & (1,1) & (1,1) \\ \hline
+   non-corner, non-center & f & (1,0) & (2,1) \\ \hline
+  \end{tabular}
+ \end{center}
+\end{table}%
+
+This rotation can be effected by applying the following code to every point in the matrix:
+
+\begin{lstlisting}
+def rotate_point(x, y, side_length):
+    return ((side_length - 1 - y), x)
+\end{lstlisting}
+
+In the example above, \texttt{side\_length = 3}. Check the results of the function against the various edge cases.
+
+%\newpage
+%\subsection*{Counterclockwise rotation}
+%\setcapwidth[c]{.2\textwidth}			% positions whole caption
+%\begin{figure}[htbp]
+% \begin{minipage}[b]{.3\linewidth}
+% \centering%
+%   \begin{tabular}{|>{\centering}p{.35in}|>{\centering}p{.35in}|>{\centering}p{.35in}|}\hline
+%    a & f & b \\ 
+%    (0,0) & (1,0) & (2,0) \\ \hline
+%    & e & \\ 
+%    \dots & (1,1) & \dots \\ \hline
+%    d & & c \\ 
+%    (0,2) & \dots & (2,2) \\ \hline
+%   \end{tabular}
+%  \caption{Initial state}
+% \end{minipage}%
+%% \hfill%
+% \begin{minipage}[b]{.05\linewidth}
+%  \centering%
+%   \(\longrightarrow\)
+%   \quad \\
+%   \quad \\
+%   \quad \\
+%   \quad \\
+%   \quad \\
+% \end{minipage}%
+%% \hfill%
+% \begin{minipage}[b]{.3\linewidth}
+%  \centering%
+%   \begin{tabular}{|>{\centering}p{.35in}|>{\centering}p{.35in}|>{\centering}p{.35in}|}\hline
+%    b & & c \\ 
+%    (0,0) & \dots & (2,0) \\ \hline
+%    f & e & \\ 
+%    (0,1) & (1,1) & \dots \\ \hline
+%    a & & d \\ 
+%    (0,2) & \dots & (2,2) \\ \hline
+%   \end{tabular}
+%  \caption{After 90° rotation counterclockwise}
+% \end{minipage}
+%\end{figure}
+%\setcapwidth[c]{.7\textwidth}			% positions whole caption
+%
+%This rotation can be effected by applying the following code to every point in the matrix:
+
+Similarly, the following will bring about counterclockwise rotation:
+
+\begin{lstlisting}
+def rotate_point(x, y, side_length):
+    return (y, (side_length - 1 - x))
+\end{lstlisting}
+
+%\begin{table}[htdp]
+% \begin{center}
+%  \begin{tabular}{|c|c|c|c|}\hline
+%   type & label & location & location \\ \hline
+%   corner & a & (0,0) & (0,2) \\ \hline
+%   corner & b & (2,0) & (0,0) \\ \hline
+%   corner & c & (2,2) & (2,0) \\ \hline
+%   corner & d & (0,2) & (2,2) \\ \hline
+%   center & e & (1,1) & (1,1) \\ \hline
+%   non-corner, non-center & f & (1,0) & (0,1) \\ \hline
+%  \end{tabular}
+% \end{center}
+%\end{table}%
+
+\section{Flipping}
+
+Flipping is a different kind of transformation from rotation, because it turns the ``face'' of the matrix away from us. We can flip along a row (``vertically''), a column, or a diagonal. Let's use the diagonal running from lower left to upper right. As before, make a model:
+
+% side by side figures
+% code after http://tex.stackexchange.com/a/1645/3935
+\setcapwidth[c]{.2\textwidth}			% positions whole caption
+\begin{figure}[htbp]
+ \centering%
+ \begin{minipage}[b]{.3\linewidth}
+ \centering%
+   \begin{tabular}{|>{\centering}p{.35in}|>{\centering}p{.35in}|>{\centering}p{.35in}|}\hline
+    a & f & b \\ 
+    (0,0) & (1,0) & (2,0) \\ \hline
+    & e & \\ 
+    \dots & (1,1) & \dots \\ \hline
+    d & & c \\ 
+    (0,2) & \dots & (2,2) \\ \hline
+   \end{tabular}
+  \caption{Initial state}
+ \end{minipage}%
+% \hfill%
+ \begin{minipage}[b]{.05\linewidth}
+  \centering%
+   \(\longrightarrow\)
+   \quad \\
+   \quad \\
+   \quad \\
+   \quad \\
+   \quad \\
+ \end{minipage}%
+% \hfill%
+ \begin{minipage}[b]{.3\linewidth}
+  \centering%
+   \begin{tabular}{|>{\centering}p{.35in}|>{\centering}p{.35in}|>{\centering}p{.35in}|}\hline
+    c &  & b \\ 
+    (0,0) & \dots & (2,0) \\ \hline
+     & e & f \\ 
+    \dots & (1,1) & (2,1) \\ \hline
+    d & & a \\ 
+    (0,2) & \dots & (2,2) \\ \hline
+   \end{tabular}
+  \caption{After 90° rotation clockwise}
+ \end{minipage}
+\end{figure}
+\setcapwidth[c]{.7\textwidth}			% positions whole caption
+
+Tabulate for reference:
+
+\begin{table}[htdp]
+ \begin{center}
+  \begin{tabular}{|c|c|c|c|}\hline
+   type & label & location & location \\ \hline
+   corner & a & (0,0) & (2,2) \\ \hline
+   corner & b & (2,0) & (2,0) \\ \hline
+   corner & c & (2,2) & (0,0) \\ \hline
+   corner & d & (0,2) & (0,2) \\ \hline
+   center & e & (1,1) & (1,1) \\ \hline
+   non-corner, non-center & f & (1,0) & (2,1) \\ \hline
+  \end{tabular}
+ \end{center}
+\end{table}%
+
+Note that the points forming the diagonal on which we are flipping do not change position. All the other points move to a place symmetrically opposite their place of origin across the diagonal. 
+
+\begin{lstlisting}
+def flip_on_diag_lowerleft_to_upperright(x, y, side_length):
+    # points change place only if not on this diagonal
+    if x + y !== side_length:
+        return side_length - 1 - y, side_length - 1 - x
+    return x, y
+\end{lstlisting}
+
+
+\end{document}
