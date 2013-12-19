@@ -2,7 +2,7 @@
 # permutation.py
 # David Prager Branner
 # 20131219
-"""Given an input list, return a list of all permutations of it."""
+"""Given an input list, return a list of all permutations of it (as tuples)."""
 
 def permutations_recursive(the_list):
     if len(the_list) == 1:
