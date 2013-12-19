@@ -9,31 +9,27 @@ def permutations_recursive(the_list):
         return the_list
     to_return = []
     for i, item in enumerate(the_list):
-        remainder = the_list[0:i] + (
-                the_list[i+1:] if i < len(the_list) else None)
+        remainder = tuple(the_list[0:i] + the_list[i+1:])
         # Use of isinstance needed to prevent tuple+non-tuple TypeError.
-        results = [((item,) + (
-                permuted if isinstance(permuted, tuple) else (permuted,))) 
+        results = [(item,) + (
+                permuted if isinstance(permuted, tuple) else (permuted,))
                 for permuted in permutations_recursive(remainder)]
         to_return.extend(results)
     return to_return
 
 def permutations_dynamic(the_list, memoized={}):
     # Base case.
-    if len(the_list) <= 1:
+    if len(the_list) == 1:
         return [the_list]
     to_return = []
     for i, item in enumerate(the_list):
-        # Generate subset lacking index.
-        subset = the_list[:i] + the_list[i+1:]
-        # Memoization. Must convert to tuple for use as dictionary key.
-        tuplized_subset = tuple(subset)
-        if tuplized_subset in memoized:
-            permutations_of_subset = memoized[tuplized_subset]
-        else:
-            permutations_of_subset = permutations_dynamic(subset)
-            memoized[tuplized_subset] = permutations_of_subset
-        # Combine permutations of subset with item.
-        for element in permutations_of_subset:
-            to_return.append((item,) + tuple(element))
+    # Generate remainder: subset lacking index.
+        remainder = tuple(the_list[:i] + the_list[i+1:])
+        # Memoization.
+        if remainder not in memoized:
+            memoized[remainder] = permutations_dynamic(remainder)
+        # Combine permutations of remainder with item.
+        results = [(item,) + tuple(element)
+                for element in memoized[remainder]]
+        to_return.extend(results)
     return to_return
