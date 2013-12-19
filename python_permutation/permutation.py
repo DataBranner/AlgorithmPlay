@@ -32,7 +32,7 @@ def permutations_dynamic(the_list, memoized={}):
             permutations_of_subset = memoized[tuplized_subset]
         else:
             permutations_of_subset = permutations_dynamic(subset, memoized)
-            done[tuplized_subset] = permutations_of_subset
+            memoized[tuplized_subset] = permutations_of_subset
         # Combine permutations of subset with index.
         for element in permutations_of_subset:
             to_return.append(the_list[index:index+1] + element)
