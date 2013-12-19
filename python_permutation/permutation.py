@@ -23,17 +23,17 @@ def permutations_dynamic(the_list, memoized={}):
     if len(the_list) <= 1:
         return [the_list]
     to_return = []
-    for index in range(len(the_list)):
+    for i, item in enumerate(the_list):
         # Generate subset lacking index.
-        subset = the_list[:index] + the_list[index+1:]
+        subset = the_list[:i] + the_list[i+1:]
         # Memoization. Must convert to tuple for use as dictionary key.
         tuplized_subset = tuple(subset)
         if tuplized_subset in memoized:
             permutations_of_subset = memoized[tuplized_subset]
         else:
-            permutations_of_subset = permutations_dynamic(subset, memoized)
+            permutations_of_subset = permutations_dynamic(subset)
             memoized[tuplized_subset] = permutations_of_subset
-        # Combine permutations of subset with index.
+        # Combine permutations of subset with item.
         for element in permutations_of_subset:
-            to_return.append(the_list[index:index+1] + element)
+            to_return.append((item,) + tuple(element))
     return to_return
