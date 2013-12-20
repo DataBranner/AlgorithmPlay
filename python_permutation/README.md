@@ -1,6 +1,6 @@
 ## Permutation
 
-Generate a list of all the permutations of an input list.
+Generate a list of all the permutations of an input list; return the permutations as a list of tuples.
 
 There are recursive and dynamic (recursive with memoization) versions.
 
@@ -25,6 +25,8 @@ As expected, the memoized version is much faster:
 | 4 | 92.9 usec | 15.6 usec  | 0.168 |
 | 3 | 20 usec | 7.63 usec | 0.382 |
 | 2 | 4.86 usec | 4.54 usec | 0.934 |
+
+In addition, I have supplied a different (unmemoized) version based on a piece of code by Becca Bainbridge. It does not return tuples, however.
 
 
 [end]

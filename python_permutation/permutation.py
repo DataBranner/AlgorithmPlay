@@ -33,3 +33,16 @@ def permutations_dynamic(the_list, memoized={}):
                 for one_permutation in memoized[remainder]]
         to_return.extend(results)
     return to_return
+
+def permutations_becca(ls, seed=''):
+    """Based on the code of Becca Bainbridge
+
+    http://pastebin.com/G8dtbdfw, accessed 20131220.
+    """
+    if not ls:
+        return [seed]
+    else:
+        perms = []
+        for i, x in enumerate(ls):
+            perms.extend(permutations_becca(ls[:i]+ls[i+1:], seed=seed+str(x)))
+        return perms
