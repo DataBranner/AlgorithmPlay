@@ -9,18 +9,21 @@ I am limiting myself to basic Python tools, in order to study the structure of t
   Two kinds of tables can be created, with a default initial size of 16 slots:
 
    * non-resizeable:
-
+        ~~~
         import hash_table
         ht = hash_table.Hash_Table()
         # To create a different number of slots from the default use:
         # ht = hash_table.Hash_Table(size)
+~~~
 
    * resizeable:
 
+        ~~~
         import hash_table
         ht = hash_table.Hash_Table(resizeable=True)
         # To create a different number of slots from the default use:
         # ht = hash_table.Hash_Table(size, True)
+~~~
 
   In the latter, the table will be resized by a factor of 2 (default; can be controlled by setting `self.resize_factor`) when the number of filled slots exceeds the value `self.resize_threshold` (default is `size / 2`),
   
