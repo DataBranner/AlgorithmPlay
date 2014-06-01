@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # mergesort_timed_practice.py
 # David Prager Branner
-# 20140601, works, after 31 minutes.
+# 20140601, works, after 29 minutes.
 
 def mergesort(lst):
     # Base case
