@@ -12,7 +12,7 @@ return
 
     [1, 'a', 2, 'c', 3, 'g']
 
-The integers 1, 2, 3 are now in sorted order, as are the strings 'a', 'c', 'g'. 
+The integers 1, 2, 3 are now in sorted order, as are the strings 'a', 'c', 'g'. But the pattern of integers and strings in the returned list is the same as the pattern in the input list.
 
 Do this for any number of datatypes found in the input string.
 
