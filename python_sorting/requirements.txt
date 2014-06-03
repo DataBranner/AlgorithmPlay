@@ -1,0 +1,5 @@
+ipython==1.2.1
+numpy==1.8.0
+py==1.4.20
+pytest==2.5.2
+pyzmq==14.0.1
