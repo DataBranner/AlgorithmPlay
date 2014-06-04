@@ -64,11 +64,11 @@ def main(p, s):
     print('''    Queue is empty: {}.'''.format(cursor_pair_queue))
     print('''\nMatch has failed.''')
     if s_cursor < len(s) - 1:
-        print('''    String is not used up after '''
-                '''cursor-pair queue is empty.''')
+        print('''    Cursor-pair queue is empty but '''
+                '''string is not yet used up.''')
     if p_cursor < len(p) - 1:
-        print('''    Pattern is not used up after '''
-                '''cursor-pair queue is empty: ''')
+        print('''    Cursor-pair queue is empty but '''
+                '''pattern is not yet used up.''')
     print('''\nFinal state:'''
             '''\n    s_cursor: {}, len(s) - 1: {}'''
             '''\n    p_cursor: {}, len(p) - 1: {}'''.
