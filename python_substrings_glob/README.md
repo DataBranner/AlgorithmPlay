@@ -41,7 +41,7 @@ There is a second version of the program, `glob_match_with_print.py`, that descr
 
 ### Workings
 
- 1. Uses two cursor to keep track of string indices, one for `p` and one for `s`.
+ 1. Uses two cursors to keep track of string indices, one for `p` and one for `s`.
 
  1. Dictionary-branching is used to send the strings and their cursors to various functions for matching. The branching dictionary is `actions` and it is populated based on the contents of `s` plus the `?` and `*` wildcards.
 
