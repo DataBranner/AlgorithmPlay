@@ -40,9 +40,9 @@ def main(p, s):
             if s_cursor == len(s) - 1 and p_cursor == len(p) - 1:
                 return True
             cursor_pair_queue.extend(new_states)
-        else:
-            if not cursor_pair_queue:
-                return False
+#        else:
+#            if not cursor_pair_queue:
+#                return False
     return False
 
 def count_character(p, s, p_cursor, s_cursor):

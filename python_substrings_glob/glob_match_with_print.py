@@ -51,12 +51,12 @@ def main(p, s):
                         format(s_cursor, len(s) - 1, p_cursor, len(p) - 1))
                 return True
             cursor_pair_queue.extend(new_states)
-        else:
-            print('''    Match has failed because character {} in pattern '''
-                    '''does not match character {} in string.'''.
-                    format(p[p_cursor], s[s_cursor]))
-            if not cursor_pair_queue:
-                return False
+#        else:
+#            print('''    Match has failed because character {} in pattern '''
+#                    '''does not match character {} in string.'''.
+#                    format(p[p_cursor], s[s_cursor]))
+#            if not cursor_pair_queue:
+#                return False
         print('    on return, queue: {}'.format(cursor_pair_queue))
     if s_cursor < len(s) - 1:
         print('    Match has failed because string is not used up.')
