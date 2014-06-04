@@ -59,10 +59,11 @@ def main(p, s):
 #                return False
         print('    on return, queue: {}'.format(cursor_pair_queue))
     if s_cursor < len(s) - 1:
-        print('    Match has failed because string is not used up.')
+        print('''    Match has failed because pattern is not used up after '''
+                '''cursor-pair queue is empty.''')
     if s_cursor > len(s) - 1:
-        print('''    Match has failed because string is not matched but '''
-                '''is used up.''')
+        print('''    Match has failed because string is not used up after '''
+                '''cursor-pair queue is empty.''')
     print('\ns_cursor:len(s)-1 {}:{}'.format(s_cursor, len(s) - 1))
     return False
 

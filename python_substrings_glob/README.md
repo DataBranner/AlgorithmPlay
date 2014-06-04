@@ -50,9 +50,9 @@ Out[7]: False
  1. The program returns `False` under two circumstances:
 
    2. a character is encountered in `p` that is not in `s`;
-   2. there are no cursor-pairs left in the queue but the cursor for `s` has not yet reached the end of `s`.
+   2. there are no cursor-pairs left in the queue but either `p` or `s` has not yet been used up.
 
-   Otherwise, the program `True` when both cursors have reached the end of their respective strings.
+   Otherwise, the program return `True` when both cursors have reached the end of their respective strings.
 
 ### Testing
 
