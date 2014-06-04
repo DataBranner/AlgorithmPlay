@@ -17,10 +17,12 @@ def main(p, s):
     cursor_pair_queue = deque([(p_cursor, s_cursor)])
     cursor_pairs_seen = {}
     to_return = None
+    pop_counter = 0
     # Prune any redundant * in pattern.
     while '**' in p:
         p = p.replace('**', '*')
         print('    Pruning redundant * in pattern.')
+    print('    Using pattern {}.'.format(p))
     # Add all elements of string to dictionary of actions.
     actions = {c: count_character for c in set(s)}
     actions['?'] = question_mark
@@ -28,6 +30,7 @@ def main(p, s):
     # Start traversing string and adding cursor-pairs to queue.
     while cursor_pair_queue:
         p_cursor, s_cursor = cursor_pair_queue.popleft()
+        pop_counter += 1
         # Eliminate cursor-pairs already examined or having invalid s-cursor.
         if (p_cursor, s_cursor) in cursor_pairs_seen or s_cursor == len(s):
             if (p_cursor, s_cursor) in cursor_pairs_seen:
@@ -61,15 +64,18 @@ def main(p, s):
                 format(actions[next_char].__name__, new_pairs))
         if new_pairs:
             if s_cursor == len(s) - 1 and p_cursor == len(p) - 1:
-                print('''    Match has succeeded because s_cursor == len(s) '''
-                        '''{} >= {} and p_cursor == len(p) - 1: {} == {}.'''.
-                        format(s_cursor, len(s) - 1, p_cursor, len(p) - 1))
+                print('''    Match has succeeded because cursors are both '''
+                        '''at the last indices of their strings: '''
+                        '''\np: {}, s: {}.'''.
+                        format(p_cursor, s_cursor)
                 to_return = True
                 break
             cursor_pair_queue.extend(new_pairs)
         print('    queue is now {}'.format(cursor_pair_queue))
     # If we are here, either p or s is not yet used up.
     print('''    Final state of queue: {}.'''.format(cursor_pair_queue))
+    print('''    Total number of cursor-pairs popped from queue: {}.'''.
+            format(pop_counter))
     if to_return == None:
         print('''\nMatch has failed.''')
         if s_cursor < len(s) - 1:
@@ -79,8 +85,8 @@ def main(p, s):
             print('''    Cursor-pair queue is empty but '''
                     '''pattern is not yet used up.''')
     print('''\nFinal state:'''
-            '''\n    s_cursor: {}, len(s) - 1: {}'''
-            '''\n    p_cursor: {}, len(p) - 1: {}'''.
+            '''\n    s_cursor: {}, last index of s: {}'''
+            '''\n    p_cursor: {}, last index of p: {}'''.
             format(s_cursor, len(s) - 1, p_cursor, len(p) - 1))
     return to_return
 
