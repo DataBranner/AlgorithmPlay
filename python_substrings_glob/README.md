@@ -1,4 +1,4 @@
-## Python Substrings Problems: Globbing (Global Wildcard Expansion)
+## Globbing (Global Wildcard Expansion)
 
 Without turning to Python's regex tools, given an input string `s` and a glob pattern `p`, determine whether the pattern matches the whole string or not, returning `True` or `False`.
 
