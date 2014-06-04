@@ -24,6 +24,12 @@ def main(p, s):
         p_cursor, s_cursor = cursor_pair_queue.popleft()
         # Eliminate cursor-pairs already examined or having invalid s-cursor.
         if (p_cursor, s_cursor) in cursor_pairs_seen or s_cursor == len(s):
+            if (p_cursor, s_cursor) in cursor_pairs_seen:
+                print('''    Cursor pair {}:{} has already been examined; '''
+                '''discarding.'''.format(p_cursor, s_cursor))
+            else:
+                print('''    String cursor has exceeded length of string; '''
+                '''discarding cursor pair {}:{}.'''.format(p_cursor, s_cursor))
             continue
         else:
             cursor_pairs_seen[(p_cursor, s_cursor)] = True
@@ -34,17 +40,18 @@ def main(p, s):
             print('    Discard {} because p_cursor >= len(p).'.
                     format((p_cursor, s_cursor)))
             continue
-        print('\n{}:{} ({}:{})'.
+        print('\n{}:{} (cursors p={} : s={})'.
                 format(p[p_cursor], s[s_cursor], p_cursor, s_cursor))
         # Compare character-pairs.
         try:
-            print('    next action: {}'.format(actions[next_char].__name__))
+            print('    function called: {}'.format(actions[next_char].__name__))
             new_states = actions[next_char](p, s, p_cursor, s_cursor)
         except KeyError:
             print('''    Match has failed because character {} in pattern '''
                     '''is not in string'''.format(next_char))
             return False
-        print('    on return, new states: {}'.format(new_states))
+        print('    function {} returns: {}'.
+                format(actions[next_char].__name__, new_states))
         if new_states:
             if s_cursor == len(s) - 1 and p_cursor == len(p) - 1:
                 print('''    Match has succeed because s_cursor >= len(s) '''
@@ -52,8 +59,9 @@ def main(p, s):
                         format(s_cursor, len(s) - 1, p_cursor, len(p) - 1))
                 return True
             cursor_pair_queue.extend(new_states)
-        print('    on return, queue: {}'.format(cursor_pair_queue))
+        print('    queue is now {}'.format(cursor_pair_queue))
     # If we are here, queue is empty but either p or s is not yet used up.
+    print('''    Queue is empty: {}.'''.format(cursor_pair_queue))
     print('''\nMatch has failed.''')
     if s_cursor < len(s) - 1:
         print('''    String is not used up after '''
