@@ -58,6 +58,6 @@ There is a second version of the program, `glob_match_with_print.py`, that descr
 
 ### Testing
 
-There is a test suite in directory `test`.
+There is a Pytest suite in directory `test`.
 
 [end]
