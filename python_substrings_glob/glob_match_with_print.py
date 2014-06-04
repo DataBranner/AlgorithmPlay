@@ -9,6 +9,7 @@ from collections import deque
 
 def main(p, s):
     """Use cursors, a queue, and memoization to match glob pattern to string."""
+    print('This program describes the decisions that are being made at each step. For silent running, use `glob_match.py`.')
     # Populate initial variables.
     p_cursor = 0
     s_cursor = 0

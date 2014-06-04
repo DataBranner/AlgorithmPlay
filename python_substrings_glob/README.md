@@ -9,7 +9,7 @@ This program runs in Python3 and Python2.7. The glob syntax currently treated is
 
 ### To run
 
-Run using the module's `main` function:
+Run `glob_match.py` using the module's `main` function:
 
     main(p, s)
 
@@ -36,6 +36,8 @@ Out[6]: True
 In [7]: G.main('a?c', 'aab')    # There is no 'c' in the string.
 Out[7]: False
 ```
+
+There is a second version of the program, `glob_match_with_print.py`, that describes the decisions that are being made at each step.
 
 ### Workings
 
