@@ -14,7 +14,7 @@ def main(p, s):
     s_cursor = 0
     cursor_pair_queue = deque([(p_cursor, s_cursor)])
     cursor_pairs_seen = {}
-    # Add non-wildcard elements of string to dictionary of actions.
+    # Add all elements of string to dictionary of actions.
     actions = {c: count_character for c in set(s)}
     actions['?'] = question_mark
     actions['*'] = star
@@ -36,25 +36,25 @@ def main(p, s):
             continue
         # Compare character-pairs.
         try:
-            new_states = actions[next_char](p, s, p_cursor, s_cursor)
+            new_pairs = actions[next_char](p, s, p_cursor, s_cursor)
         except KeyError:
             return False
-        if new_states:
+        if new_pairs:
             if s_cursor == len(s) - 1 and p_cursor == len(p) - 1:
                 return True
-            cursor_pair_queue.extend(new_states)
+            cursor_pair_queue.extend(new_pairs)
     # If we are here, queue is empty but either p or s is not yet used up.
     return False
 
 def count_character(p, s, p_cursor, s_cursor):
-    """Advance cursors if exact match."""
+    """Advance both cursors if exact match."""
     if p[p_cursor] == s[s_cursor]:
         return [(p_cursor + 1, s_cursor + 1)]
     else:
         return None
 
 def question_mark(p, s, p_cursor, s_cursor):
-    """Advance cursor on any character."""
+    """Advance both cursors on any character."""
     return [(p_cursor + 1, s_cursor + 1)]
 
 def star(p, s, p_cursor, s_cursor):

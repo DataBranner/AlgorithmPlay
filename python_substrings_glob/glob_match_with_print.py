@@ -21,7 +21,7 @@ def main(p, s):
     while '**' in p:
         p = p.replace('**', '*')
         print('    Pruning redundant * in pattern.')
-    # Add non-wildcard elements of string to dictionary of actions.
+    # Add all elements of string to dictionary of actions.
     actions = {c: count_character for c in set(s)}
     actions['?'] = question_mark
     actions['*'] = star
@@ -51,22 +51,22 @@ def main(p, s):
         # Compare character-pairs.
         try:
             print('    function called: {}'.format(actions[next_char].__name__))
-            new_states = actions[next_char](p, s, p_cursor, s_cursor)
+            new_pairs = actions[next_char](p, s, p_cursor, s_cursor)
         except KeyError:
             print('''    Match has failed because character {} in pattern '''
                     '''is not in string'''.format(next_char))
             to_return = False
             break
         print('    function {} returns: {}'.
-                format(actions[next_char].__name__, new_states))
-        if new_states:
+                format(actions[next_char].__name__, new_pairs))
+        if new_pairs:
             if s_cursor == len(s) - 1 and p_cursor == len(p) - 1:
                 print('''    Match has succeeded because s_cursor == len(s) '''
                         '''{} >= {} and p_cursor == len(p) - 1: {} == {}.'''.
                         format(s_cursor, len(s) - 1, p_cursor, len(p) - 1))
                 to_return = True
                 break
-            cursor_pair_queue.extend(new_states)
+            cursor_pair_queue.extend(new_pairs)
         print('    queue is now {}'.format(cursor_pair_queue))
     # If we are here, either p or s is not yet used up.
     print('''    Final state of queue: {}.'''.format(cursor_pair_queue))
@@ -85,12 +85,12 @@ def main(p, s):
     return to_return
 
 def count_character(p, s, p_cursor, s_cursor):
-    """Advance cursors if exact match."""
+    """Advance both cursors if exact match."""
     if p[p_cursor] == s[s_cursor]:
         return [(p_cursor + 1, s_cursor + 1)]
 
 def question_mark(p, s, p_cursor, s_cursor):
-    """Advance cursor on any character."""
+    """Advance both cursors on any character."""
     return [(p_cursor + 1, s_cursor + 1)]
 
 def star(p, s, p_cursor, s_cursor):
