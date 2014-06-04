@@ -18,6 +18,9 @@ def main(p, s):
     actions = {c: count_character for c in set(s)}
     actions['?'] = question_mark
     actions['*'] = star
+    # Prune any duplicate * in pattern.
+    while '**' in p:
+        p = p.replace('**', '*')
     # Start traversing string and adding cursor-pairs to queue.
     while cursor_pair_queue:
         p_cursor, s_cursor = cursor_pair_queue.popleft()

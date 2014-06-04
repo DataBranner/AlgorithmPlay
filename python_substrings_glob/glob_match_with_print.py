@@ -15,6 +15,10 @@ def main(p, s):
     s_cursor = 0
     cursor_pair_queue = deque([(p_cursor, s_cursor)])
     cursor_pairs_seen = {}
+    # Prune any duplicate * in pattern.
+    while '**' in p:
+        p = p.replace('**', '*')
+        print('    Pruning duplicate * in pattern.')
     # Add non-wildcard elements of string to dictionary of actions.
     actions = {c: count_character for c in set(s)}
     actions['?'] = question_mark
@@ -54,7 +58,7 @@ def main(p, s):
                 format(actions[next_char].__name__, new_states))
         if new_states:
             if s_cursor == len(s) - 1 and p_cursor == len(p) - 1:
-                print('''    Match has succeed because s_cursor >= len(s) '''
+                print('''    Match has succeeded because s_cursor == len(s) '''
                         '''{} >= {} and p_cursor == len(p) - 1: {} == {}.'''.
                         format(s_cursor, len(s) - 1, p_cursor, len(p) - 1))
                 return True
