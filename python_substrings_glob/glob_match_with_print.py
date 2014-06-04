@@ -9,16 +9,18 @@ from collections import deque
 
 def main(p, s):
     """Use cursors, a queue, and memoization to match glob pattern to string."""
-    print('This program describes the decisions that are being made at each step. For silent running, use `glob_match.py`.')
+    print('This program describes the decisions that are being made at each '''
+            '''step. For silent running, use `glob_match.py`.\n''')
     # Populate initial variables.
     p_cursor = 0
     s_cursor = 0
     cursor_pair_queue = deque([(p_cursor, s_cursor)])
     cursor_pairs_seen = {}
-    # Prune any duplicate * in pattern.
+    to_return = None
+    # Prune any redundant * in pattern.
     while '**' in p:
         p = p.replace('**', '*')
-        print('    Pruning duplicate * in pattern.')
+        print('    Pruning redundant * in pattern.')
     # Add non-wildcard elements of string to dictionary of actions.
     actions = {c: count_character for c in set(s)}
     actions['?'] = question_mark
@@ -53,7 +55,8 @@ def main(p, s):
         except KeyError:
             print('''    Match has failed because character {} in pattern '''
                     '''is not in string'''.format(next_char))
-            return False
+            to_return = False
+            break
         print('    function {} returns: {}'.
                 format(actions[next_char].__name__, new_states))
         if new_states:
@@ -61,23 +64,25 @@ def main(p, s):
                 print('''    Match has succeeded because s_cursor == len(s) '''
                         '''{} >= {} and p_cursor == len(p) - 1: {} == {}.'''.
                         format(s_cursor, len(s) - 1, p_cursor, len(p) - 1))
-                return True
+                to_return = True
+                break
             cursor_pair_queue.extend(new_states)
         print('    queue is now {}'.format(cursor_pair_queue))
-    # If we are here, queue is empty but either p or s is not yet used up.
-    print('''    Queue is empty: {}.'''.format(cursor_pair_queue))
-    print('''\nMatch has failed.''')
-    if s_cursor < len(s) - 1:
-        print('''    Cursor-pair queue is empty but '''
-                '''string is not yet used up.''')
-    if p_cursor < len(p) - 1:
-        print('''    Cursor-pair queue is empty but '''
-                '''pattern is not yet used up.''')
+    # If we are here, either p or s is not yet used up.
+    print('''    Final state of queue: {}.'''.format(cursor_pair_queue))
+    if to_return == None:
+        print('''\nMatch has failed.''')
+        if s_cursor < len(s) - 1:
+            print('''    Cursor-pair queue is empty but '''
+                    '''string is not yet used up.''')
+        if p_cursor < len(p) - 1:
+            print('''    Cursor-pair queue is empty but '''
+                    '''pattern is not yet used up.''')
     print('''\nFinal state:'''
             '''\n    s_cursor: {}, len(s) - 1: {}'''
             '''\n    p_cursor: {}, len(p) - 1: {}'''.
             format(s_cursor, len(s) - 1, p_cursor, len(p) - 1))
-    return False
+    return to_return
 
 def count_character(p, s, p_cursor, s_cursor):
     """Advance cursors if exact match."""
