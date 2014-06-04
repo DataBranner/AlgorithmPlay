@@ -7,9 +7,9 @@
 
 from collections import deque
 
-def main(p, s, debug_print=False):
+def main(p, s):
+    """Use cursors, a queue, and memoization to match glob pattern to string."""
     # Populate initial variables.
-    progress_messages = []
     p_cursor = 0
     s_cursor = 0
     the_queue = deque([(p_cursor, s_cursor)])
@@ -21,59 +21,60 @@ def main(p, s, debug_print=False):
     # Start traversing string and adding cursor-pairs to queue.
     while the_queue:
         p_cursor, s_cursor = the_queue.popleft()
+        # Eliminate cursor-pairs already examined or having invalid s-cursor.
         if (p_cursor, s_cursor) in cursor_pairs or s_cursor == len(s):
             continue
         else:
             cursor_pairs[(p_cursor, s_cursor)] = True
+        # Get next character of pattern
         if p_cursor < len(p):
             next_char = p[p_cursor]
         else:
-            progress_messages.append(
+            print(
                     '    Discard {} because p_cursor >= len(p).'.
                     format((p_cursor, s_cursor)))
             continue
-        progress_messages.append(
+        print(
                 '\n{}:{} ({}:{})'.
                 format(p[p_cursor], s[s_cursor], p_cursor, s_cursor))
+        # Compare character-pairs.
         try:
-            progress_messages.append(
+            print(
                     '    next action: {}'.format(actions[next_char].__name__))
             new_states = actions[next_char](p, s, p_cursor, s_cursor)
         except KeyError:
-            progress_messages.append(
+            print(
                     '''    Match has failed because character {} in pattern '''
                     '''is not in string'''.format(next_char))
             return False
-        progress_messages.append(
+        print(
                 '    on return, new states: {}'.format(new_states))
         if new_states:
             if s_cursor == len(s) - 1 and p_cursor == len(p) - 1:
-                progress_messages.append(
+                print(
                         '''    Match has succeed because s_cursor >= len(s) '''
                         '''{} >= {} and p_cursor == len(p) - 1: {} == {}.'''.
                         format(s_cursor, len(s) - 1, p_cursor, len(p) - 1))
                 return True
             the_queue.extend(new_states)
         else:
-            progress_messages.append(
+            print(
                     '''    Match has failed because character {} in pattern '''
                     '''does not match character {} in string.'''.
                     format(p[p_cursor], s[s_cursor]))
             if not the_queue:
                 return False
-        progress_messages.append(
+        print(
                 '    on return, queue: {}'.format(the_queue))
     if s_cursor < len(s) - 1:
-        progress_messages.append(
+        print(
                 '    Match has failed because string is not used up.')
     if s_cursor > len(s) - 1:
-        progress_messages.append(
+        print(
                 '''    Match has failed because string is not matched but '''
                 '''is used up.''')
-    progress_messages.append(
+    print(
             '\ns_cursor:len(s)-1 {}:{}'.format(s_cursor, len(s) - 1))
-    if debug_print:
-        print('\n'.join(progress_messages))
     return False
 
 def count_character(p, s, p_cursor, s_cursor):

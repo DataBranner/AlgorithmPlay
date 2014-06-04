@@ -8,8 +8,8 @@
 from collections import deque
 
 def main(p, s):
+    """Use cursors, a queue, and memoization to match glob pattern to string."""
     # Populate initial variables.
-    progress_messages = []
     p_cursor = 0
     s_cursor = 0
     the_queue = deque([(p_cursor, s_cursor)])
@@ -21,17 +21,17 @@ def main(p, s):
     # Start traversing string and adding cursor-pairs to queue.
     while the_queue:
         p_cursor, s_cursor = the_queue.popleft()
-        # Eliminate cursor-pairs already examined and invalid s_cursor.
+        # Eliminate cursor-pairs already examined or having invalid s-cursor.
         if (p_cursor, s_cursor) in cursor_pairs or s_cursor == len(s):
             continue
         else:
             cursor_pairs[(p_cursor, s_cursor)] = True
-        # Eliminate invalid p_cursor
+        # Get next character of pattern
         if p_cursor < len(p):
             next_char = p[p_cursor]
         else:
             continue
-        # Try to match character-pairs.
+        # Compare character-pairs.
         try:
             new_states = actions[next_char](p, s, p_cursor, s_cursor)
         except KeyError:
