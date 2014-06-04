@@ -52,20 +52,19 @@ def main(p, s):
                         format(s_cursor, len(s) - 1, p_cursor, len(p) - 1))
                 return True
             cursor_pair_queue.extend(new_states)
-#        else:
-#            print('''    Match has failed because character {} in pattern '''
-#                    '''does not match character {} in string.'''.
-#                    format(p[p_cursor], s[s_cursor]))
-#            if not cursor_pair_queue:
-#                return False
         print('    on return, queue: {}'.format(cursor_pair_queue))
+    # If we are here, queue is empty but either p or s is not yet used up.
+    print('''\nMatch has failed.''')
     if s_cursor < len(s) - 1:
-        print('''    Match has failed because pattern is not used up after '''
+        print('''    String is not used up after '''
                 '''cursor-pair queue is empty.''')
-    if s_cursor > len(s) - 1:
-        print('''    Match has failed because string is not used up after '''
-                '''cursor-pair queue is empty.''')
-    print('\ns_cursor:len(s)-1 {}:{}'.format(s_cursor, len(s) - 1))
+    if p_cursor < len(p) - 1:
+        print('''    Pattern is not used up after '''
+                '''cursor-pair queue is empty: ''')
+    print('''\nFinal state:'''
+            '''\n    s_cursor: {}, len(s) - 1: {}'''
+            '''\n    p_cursor: {}, len(p) - 1: {}'''.
+            format(s_cursor, len(s) - 1, p_cursor, len(p) - 1))
     return False
 
 def count_character(p, s, p_cursor, s_cursor):
