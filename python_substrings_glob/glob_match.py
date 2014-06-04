@@ -12,20 +12,20 @@ def main(p, s):
     # Populate initial variables.
     p_cursor = 0
     s_cursor = 0
-    the_queue = deque([(p_cursor, s_cursor)])
-    cursor_pairs = {}
+    cursor_pair_queue = deque([(p_cursor, s_cursor)])
+    cursor_pairs_seen = {}
     # Add non-wildcard elements of string to dictionary of actions.
     actions = {c: count_character for c in set(s)}
     actions['?'] = question_mark
     actions['*'] = star
     # Start traversing string and adding cursor-pairs to queue.
-    while the_queue:
-        p_cursor, s_cursor = the_queue.popleft()
+    while cursor_pair_queue:
+        p_cursor, s_cursor = cursor_pair_queue.popleft()
         # Eliminate cursor-pairs already examined or having invalid s-cursor.
-        if (p_cursor, s_cursor) in cursor_pairs or s_cursor == len(s):
+        if (p_cursor, s_cursor) in cursor_pairs_seen or s_cursor == len(s):
             continue
         else:
-            cursor_pairs[(p_cursor, s_cursor)] = True
+            cursor_pairs_seen[(p_cursor, s_cursor)] = True
         # Get next character of pattern
         if p_cursor < len(p):
             next_char = p[p_cursor]
@@ -39,9 +39,9 @@ def main(p, s):
         if new_states:
             if s_cursor == len(s) - 1 and p_cursor == len(p) - 1:
                 return True
-            the_queue.extend(new_states)
+            cursor_pair_queue.extend(new_states)
         else:
-            if not the_queue:
+            if not cursor_pair_queue:
                 return False
     return False
 
@@ -49,6 +49,8 @@ def count_character(p, s, p_cursor, s_cursor):
     """Advance cursors if exact match."""
     if p[p_cursor] == s[s_cursor]:
         return [(p_cursor + 1, s_cursor + 1)]
+    else:
+        return None
 
 def question_mark(p, s, p_cursor, s_cursor):
     """Advance cursor on any character."""
