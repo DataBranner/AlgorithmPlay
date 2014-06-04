@@ -45,7 +45,7 @@ There is a second version of the program, `glob_match_with_print.py`, that descr
 
  1. Dictionary-branching is used to send the strings and their cursors to various functions for matching. The branching dictionary is `actions` and it is populated based on the contents of `s` plus the `?` and `*` wildcards.
 
- 1. Each function returns between zero and three cursor pairs, which go into a queue `cursor_pair_queue` to be handled in order.
+ 1. Each function returns between zero and three cursor-pairs, which go into a queue `cursor_pair_queue` to be handled in order.
 
  1. Cursor-pairs are memoized in a dictionary `cursor_pairs_seen` to prevent repetition when `*` is encountered.
 
