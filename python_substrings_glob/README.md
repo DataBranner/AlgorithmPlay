@@ -70,4 +70,9 @@ Python's own `glob` module relies on regex:
    * compiles it and generates a `re.compile.match()` object (in `_compile_pattern()`);
    * calls the `re.compile.match()` object on various filenames (in `filter()`).
 
+### Next features
+
+ 1. Character sets
+ 1. Negated character sets
+
 [end]

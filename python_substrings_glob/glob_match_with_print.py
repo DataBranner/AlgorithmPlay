@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 # glob_match_with_print.py
 # David Prager Branner
-# 20140603, works
+# 20140604, works
 
 """Perform simple glob (global wildcard expansion) match on input string."""
 
