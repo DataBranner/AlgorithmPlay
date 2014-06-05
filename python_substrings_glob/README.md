@@ -60,4 +60,8 @@ There is a second version of the program, `glob_match_with_print.py`, that descr
 
 There is a Pytest suite in directory `test`.
 
+### Other discussion
+
+Python's own [glob](http://hg.python.org/cpython/file/3.4/Lib/glob.py) module relies on [fnmatch.translate()](http://hg.python.org/cpython/file/3.4/Lib/fnmatch.py) to convert a glob pattern to regex.
+
 [end]
