@@ -62,6 +62,12 @@ There is a Pytest suite in directory `test`.
 
 ### Other discussion
 
-Python's own [glob](http://hg.python.org/cpython/file/3.4/Lib/glob.py) module relies on [fnmatch.translate()](http://hg.python.org/cpython/file/3.4/Lib/fnmatch.py) to convert a glob pattern to regex.
+Python's own [glob](http://hg.python.org/cpython/file/3.4/Lib/glob.py) module relies on [fnmatch.translate()](http://hg.python.org/cpython/file/3.4/Lib/fnmatch.py) to convert a glob pattern to regex:
+
+ * [glob.py](http://hg.python.org/cpython/file/3.4/Lib/glob.py) calls `fnmatch.filter()`
+ * [fnmatch.py](http://hg.python.org/cpython/file/3.4/Lib/fnmatch.py) does the following:
+   * converts a `glob` patthern regex (in `translate()`); 
+   * compiles it and generates a `re.compile.match()` object (in `_compile_pattern()`);
+   * calls the `re.compile.match()` object on various filenames (in `filter()`).
 
 [end]
