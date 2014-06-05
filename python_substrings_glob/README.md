@@ -72,6 +72,7 @@ Python's own `glob` module relies on regex:
 
 ### Next features
 
+ 1. Do this as an additional program and merge it with the original one later.
  1. Character sets
  1. Negated character sets
 
