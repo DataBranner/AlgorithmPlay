@@ -22,18 +22,21 @@ def main(number):
         for i in line:
             copy_in_collection[i].append(collection_number)
     print('{}\n{}'.format(collections, copy_in_collection))
-#
-# For each collection, find missing copies and supply them from where they're
-# found.
-to_move = [[] for i in xrange(number + 1)]
-for copy in xrange(number):
-    copy_number = copy + 1
-    if len(copy_in_collection[copy_number]) != number:
-        # Find collections missing this data-set.
-        for collection in xrange(number):
-            collection_number = collection + 1
-            if collection_number not in copy_in_collection[copy_number]:
-                to_move[copy_number].append(copy_number)
-#
-# Print output.
-return to_move
+    #
+    # For each collection, find missing copies and supply them from where 
+    # they're found.
+    to_move = [[] for i in xrange(number + 1)]
+    print(to_move)
+    full_set = {i + 1 for i in range(number)}
+    print(full_set)
+    for copy in range(number):
+        copy_number = copy + 1
+        if len(copy_in_collection[copy_number]) != number:
+            # Find collections missing this data-set.
+            for collection in xrange(number):
+                collection_number = collection + 1
+                if collection_number not in copy_in_collection[copy_number]:
+                    to_move[copy_number].append(copy_number)
+    #
+    # Print output.
+    return to_move
