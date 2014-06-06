@@ -20,9 +20,7 @@ def main(lst):
     for i in list_dict_by_type:
         list_dict_by_type[i] = deque(insertionsort(list_dict_by_type[i]))
     # Recombine distinct lists into one, following template
-    recombined_list = []
-    for i in template:
-        recombined_list.append(list_dict_by_type[i].popleft())
+    recombined_list = [list_dict_by_type[i].popleft() for i in template]
     return recombined_list
 
 def insertionsort(lst):
