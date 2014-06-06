@@ -6,6 +6,8 @@
 """Make sure each collection (numbered by integers from 1)
 has a copy of each other collection."""
 
+import random
+
 def main(number):
     # Each collection is a set containing copy-numbers.
     # We are counting from 1 so will always leave index 0 empty and will use
@@ -21,27 +23,25 @@ def main(number):
         collections.append(set(line))
         for i in line:
             copy_in_collection[i].append(collection_number)
-    print('{}\n{}'.format(collections, copy_in_collection))
+    print('collections: {}\ncopy_in_collection: {}'.
+            format(collections, copy_in_collection))
     #
     # For each collection, find missing copies and supply them from where 
     # they're found.
-    to_move = [[] for i in xrange(number + 1)]
+    to_move = {i: [] for i in xrange(1, number + 1)}
     print(to_move)
     full_set = {i + 1 for i in range(number)}
     print(full_set)
-    for collection in collections:
+    for i, collection in enumerate(collections[1:]):
+        i += 1
+        print('i:', i)
         difference = full_set - collection
+        print('difference:', difference)
         if difference:
-            # QQQ
-            pass
-    for copy in range(number):
-        copy_number = copy + 1
-        if len(copy_in_collection[copy_number]) != number:
-            # Find collections missing this data-set.
-            for collection in xrange(number):
-                collection_number = collection + 1
-                if collection_number not in copy_in_collection[copy_number]:
-                    to_move[copy_number].append(copy_number)
+            for j in difference:
+                print('j:', j)
+                source = random.sample(copy_in_collection[j], 1)
+                to_move[i].append(source)
     #
     # Print output.
     return to_move
