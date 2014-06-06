@@ -31,6 +31,7 @@ def main(string_of_lines):
     set_of_int_chars = [set(line.split()) 
             for line in string_of_lines.split('\n')]
 #    print('set_of_int_chars:', set_of_int_chars)
+    #
     # (We are counting from 1 so will always leave index 0 empty and will use
     #     a separate variable, incremented by 1, in loops and comprehensions.)
     libraries = [None] + [
@@ -40,6 +41,7 @@ def main(string_of_lines):
     # Find largest library number.
     number = max(max(item) for item in libraries[1:])
 #    print('number:', number)
+    #
     # Assign a catalog's number to any library possessing it.
     # "catalog_in_library" indexes where a given catalog can be found.
     catalog_in_library = {i + 1: set() for i in range(number)}
@@ -51,7 +53,7 @@ def main(string_of_lines):
     print('libraries: {}\ncatalog_in_library: {}'.
             format(libraries, catalog_in_library))
     #
-    # For each library, find missing copies and supply them from where 
+    # For each library, find missing catalogs and supply them from wherever
     # they are found.
     to_move = []
 #    print('to_move:', to_move)
