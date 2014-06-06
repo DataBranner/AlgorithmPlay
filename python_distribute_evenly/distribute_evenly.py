@@ -18,7 +18,7 @@ def main(number):
     copy_in_collection = {i + 1: [] for i in range(number)}
     for collection in range(number):
         collection_number = collection + 1
-        line = raw_input()
+        line = input()
         line = [int(i) for i in line.split()]
         collections.append(set(line))
         for i in line:
@@ -28,20 +28,26 @@ def main(number):
     #
     # For each collection, find missing copies and supply them from where 
     # they're found.
-    to_move = {i: [] for i in xrange(1, number + 1)}
-    print(to_move)
+    to_move = []
+    print('to_move:', to_move)
     full_set = {i + 1 for i in range(number)}
-    print(full_set)
-    for i, collection in enumerate(collections[1:]):
-        i += 1
-        print('\ni:', i)
-        difference = full_set - collection
-        print('difference:', difference)
-        if difference:
-            for j in difference:
-                print('j:', j)
-                source = random.sample(copy_in_collection[j], 1)
-                to_move[source].append(i)
+    print('full_set:', full_set)
+    for collection_number, collection in enumerate(collections[1:]):
+        collection_number += 1
+        print('\ncollection_number:', collection_number)
+        all_missing = full_set - collection
+        print('difference:', all_missing)
+        if all_missing:
+            for one_missing in all_missing:
+                print('one_missing:', one_missing)
+                source = random.sample(copy_in_collection[one_missing], 1)[0]
+                print('source:', source)
+                to_move.append(
+                        str(one_missing) + ' ' + 
+                        str(source) + ' ' + 
+                        str(collection_number)
+                        )
     #
     # Print output.
+    to_move.append('done')
     return to_move
