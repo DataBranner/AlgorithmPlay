@@ -8,9 +8,9 @@ def test_01():
     string_of_lines = (
             '''1 3 4\n'''
             '''1 2 3\n'''
-            '''1 3\n'''
-            '''1 4 2''')
-    expected_output = ['2 2 1', '4 1 2', '2 2 3', '4 1 3', '3 1 4']
+            '''1 4\n'''
+            '''1 3 2''')
+    expected_output = ['2 2 1', '4 1 2', '2 2 3', '3 1 3', '4 1 4']
     assert D.main(string_of_lines) == expected_output
     
 def test_02():
@@ -22,20 +22,20 @@ def test_02():
     
 def test_03():
     string_of_lines = (
-            '''1 3 4 5 7\n'''
+            '''1 3 4 6 7\n'''
             '''1 3\n'''
             '''2''')
     expected_output = ['2 3 1',
-            '2 3 2',
-            '4 1 2',
-            '5 1 2',
-            '7 1 2',
-            '1 1 3',
-            '3 1 3',
-            '4 1 3',
-            '5 1 3',
-            '7 1 3']
+        '2 3 2',
+        '4 1 2',
+        '6 1 2',
+        '7 1 2',
+        '1 1 3',
+        '3 1 3',
+        '4 1 3',
+        '6 1 3',
+        '7 1 3']
     assert D.main(string_of_lines) == expected_output
 
-# Further tests: use the output to update contents of `collections` and 
-# then see if all collections are complete.
+# Further tests: use the output to update contents of `libraries` and 
+# then see if all libraries's sets of catalogs are complete.
