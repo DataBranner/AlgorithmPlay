@@ -3,6 +3,11 @@
 # David Prager Branner
 # 20140605, works
 
+"""Given a list containing more than one datatype, return a list in which
+the elements of each datatype are sorted among themselves, but leave the
+order of datatypes qua datatypes the same as in the original list.
+"""
+
 from collections import deque
 
 def main(lst):
@@ -17,10 +22,15 @@ def main(lst):
             list_dict_by_type[type(i)] = []
         list_dict_by_type[type(i)].append(i)
     # Sort each list
-    list_dict_by_type = {i: deque(insertionsort(list_dict_by_type[i])) 
-            for i in list_dict_by_type}
+    list_dict_by_type = {
+            i: deque(insertionsort(list_dict_by_type[i])) 
+            for i in list_dict_by_type
+            }
     # Recombine distinct lists into one, following template
-    recombined_list = [list_dict_by_type[i].popleft() for i in template]
+    recombined_list = [
+            list_dict_by_type[i].popleft() 
+            for i in template
+            ]
     return recombined_list
 
 def insertionsort(lst):
