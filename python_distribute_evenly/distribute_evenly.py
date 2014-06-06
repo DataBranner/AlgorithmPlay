@@ -34,14 +34,14 @@ def main(number):
     print(full_set)
     for i, collection in enumerate(collections[1:]):
         i += 1
-        print('i:', i)
+        print('\ni:', i)
         difference = full_set - collection
         print('difference:', difference)
         if difference:
             for j in difference:
                 print('j:', j)
                 source = random.sample(copy_in_collection[j], 1)
-                to_move[i].append(source)
+                to_move[source].append(i)
     #
     # Print output.
     return to_move

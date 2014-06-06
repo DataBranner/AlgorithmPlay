@@ -1,4 +1,5 @@
-ipython==1.0.0
+gnureadline==6.3.3
+ipython==2.1.0
 numpy==1.7.1
 py==1.4.15
 pytest==2.3.5
