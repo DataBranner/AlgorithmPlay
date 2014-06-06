@@ -17,8 +17,8 @@ def main(lst):
             list_dict_by_type[type(i)] = []
         list_dict_by_type[type(i)].append(i)
     # Sort each list
-    for i in list_dict_by_type:
-        list_dict_by_type[i] = deque(insertionsort(list_dict_by_type[i]))
+    list_dict_by_type = {i: deque(insertionsort(list_dict_by_type[i])) 
+            for i in list_dict_by_type}
     # Recombine distinct lists into one, following template
     recombined_list = [list_dict_by_type[i].popleft() for i in template]
     return recombined_list
