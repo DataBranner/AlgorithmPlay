@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 # sort_mixed_list.py
 # David Prager Branner
-# 20140602, works in 25 minutes.
+# 20140605, works
 
 from collections import deque
 
