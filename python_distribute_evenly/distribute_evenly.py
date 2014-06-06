@@ -3,18 +3,21 @@
 # David Prager Branner
 # 20140606, working
 
-"""Make sure each library (numbered by integers from 1)
-has the catalog of each other library.
+"""Make sure each library has the catalog of each other library.
 
 Input is a multi-line string of space-delimited series of integers, e.g.
+
     1 3 4\n
     1 2 3\n
     1 4\n
     1 3 2
+
 The first list represents the first library, the second list the second library, etc. The integers in a given library represent the libraries that have a copy of that library's catalog. So the first line above reads "library 1 (because it is line 1) has catalogs of libraries 1, 3, and 4."
 
 Output is a series of instructions enabling copies to be moved between libraries until all libraries have a catalog of all the libraries. It is formatted a list of space delimited strings, each containing three integers. E.g.
+
     ['2 2 1', '4 1 2', '2 2 3', '3 1 3', '4 1 4']
+
 Each string is an instruction. '2 2 1' means "Take the catalog of library 2 located at library 2 and send it to library 1."
 """
 
