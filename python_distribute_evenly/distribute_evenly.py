@@ -29,6 +29,11 @@ def main(number):
     print(to_move)
     full_set = {i + 1 for i in range(number)}
     print(full_set)
+    for collection in collections:
+        difference = full_set - collection
+        if difference:
+            # QQQ
+            pass
     for copy in range(number):
         copy_number = copy + 1
         if len(copy_in_collection[copy_number]) != number:
