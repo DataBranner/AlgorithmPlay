@@ -13,8 +13,6 @@ from collections import deque
 def main(lst):
     # Assign template
     template = [type(i) for i in lst]
-    # Find datatypes present
-    datatypes = set(template)
     # Create distinct list for each datatype (use dict)
     list_dict_by_type = {}
     for i in lst:
