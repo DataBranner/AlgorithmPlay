@@ -32,7 +32,6 @@ def main(lst):
     return recombined_list
 
 def insertionsort(lst):
-    lst.sort()
     for i in range(len(lst)):
         while i > 0 and lst[i] < lst[i - 1]:
             lst[i], lst[i - 1] = lst[i - 1], lst[i]
