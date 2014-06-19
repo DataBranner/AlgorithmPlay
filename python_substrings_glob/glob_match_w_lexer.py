@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 # glob_match_w_lexer.py
 # David Prager Branner
-# 20140618
+# 20140619
 
 """Perform simple glob (global wildcard expansion) match on input string."""
 
