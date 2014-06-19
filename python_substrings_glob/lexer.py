@@ -9,9 +9,7 @@ actions = {'?': ('dot'),
         '*': ('star')}
 
 def lexer(p):
-    """For each char or char-set in pattern, return a tuple naming its type.
-    """
-    # deque() is idempotent; no harm in this on recursion.
+    """For each char or char-set in pattern, return a tuple naming its type."""
     p = deque(p)
     lexed = []
     while p:
@@ -42,6 +40,9 @@ def lexer(p):
                     break
                 else:
                     lexed_set.append(c_in_set)
+            # Finally, append to lexed.
+            # Note that if we are doing DFA, use of
+            # set() here introduces some indeterminacy.
             lexed.append((tag, set(lexed_set)))
         else:
             lexed.append((tag, c))
