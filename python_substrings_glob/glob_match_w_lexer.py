@@ -16,6 +16,7 @@ def main(p, s):
     cursor_pair_queue = deque([(p_cursor, s_cursor)])
     cursor_pairs_seen = {}
     # Process pattern with lexer.
+    # We expect that p is raw string. But maybe that's unwise.
     lexed = L.lexer(p)
     # Add all elements of string to dictionary of actions.
     actions = {c: count_character for c in set(s)}

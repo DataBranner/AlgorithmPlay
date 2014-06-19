@@ -10,7 +10,6 @@ actions = {'?': 'question_mark',
 
 def lexer(p):
     """For each char or char-set in pattern, return a tuple naming its type."""
-    # We assume p is a raw string!
     p = deque(p)
     lexed = []
     while p:
@@ -18,11 +17,11 @@ def lexer(p):
         lexed_set = []
         c = p.popleft()
         tag = 'char'
-        print('c:', c)
         if c == '\\':
             # Process following character as escaped.
+            # But note that some forms (\b, etc.) are already treated by Python
+            # as a single entity.
             lexed.append((tag, p.popleft()))
-            print('latest:', lexed[-1])
         elif c == '[':
             # Handle character sets.
             first_c_in_set = p.popleft()

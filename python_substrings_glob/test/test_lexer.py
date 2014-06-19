@@ -88,5 +88,5 @@ def test_14():
 
 def test_15():
     """Redundantly escaped character: should be treated as unescaped."""
-    p = r'a\bc'
-    assert L.lexer(p) == [('char', 'a'), ('char', 'b'), ('char', 'c')]
+    p = r'a\%c'
+    assert L.lexer(p) == [('char', 'a'), ('char', '%'), ('char', 'c')]
