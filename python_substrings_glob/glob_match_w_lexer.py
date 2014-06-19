@@ -47,8 +47,6 @@ def main(p, s):
         except KeyError:
             print('KeyError: {}'.format(next_char))
             return False
-        print('s_cursor {} len(s) - 1 {}  p_cursor {} len(p) - 1 {}'.
-                format(s_cursor, len(s) - 1, p_cursor, len(p) - 1))
         if new_pairs:
             if s_cursor == len(s) - 1 and p_cursor == len(p) - 1:
                 return True
@@ -76,8 +74,6 @@ def star(p, s, p_cursor, s_cursor):
 
 def check_set(p, s, p_cursor, s_cursor):
     """Advance both cursors if item from s is in set from p."""
-    print('in check_negset; s[s_cursor] {} p[p_cursor][1] {}'.
-            format(s[s_cursor], p[p_cursor][1]))
     if s[s_cursor] in p[p_cursor][1]:
         return [(p_cursor + 1, s_cursor + 1)]
     else:
@@ -85,11 +81,10 @@ def check_set(p, s, p_cursor, s_cursor):
 
 def check_negset(p, s, p_cursor, s_cursor):
     """Advance both cursors if item from s is *not* in set from p."""
-    print('in check_negset; s[s_cursor] {} p[p_cursor][1] {}'.
-            format(s[s_cursor], p[p_cursor][1]))
     if s[s_cursor] in p[p_cursor][1]:
         return None
     else:
         return [(p_cursor + 1, s_cursor + 1)]
+
 if __name__ == '__main__':
     main()

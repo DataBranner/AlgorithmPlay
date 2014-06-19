@@ -28,6 +28,7 @@ def lexer(p):
             # Special test of first character in set: neg. charsets, ].
             tag = 'set'
             if first_c_in_set in {'^', '!'}:
+                print('negating character:', first_c_in_set)
                 # Discard character but change tag.
                 tag = 'negset'
             else:

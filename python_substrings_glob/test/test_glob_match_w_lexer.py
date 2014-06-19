@@ -1,6 +1,6 @@
 # test_glob_match.py
 # David Prager Branner
-# 20140603
+# 20140619
 
 """Test glob.py."""
 
@@ -12,6 +12,7 @@ import glob_match_w_lexer as G
 def glob_to_regex(s):
     s = s.replace(r'*', r'.*')
     s = s.replace(r'?', r'.')
+    s = s.replace(r'[!', r'[^') # neg char-set (one of two glob forms)
     s = '^' + s + '$'
     return s
 
@@ -103,5 +104,53 @@ def test_glob_17():
 def test_glob_18():
     s = 'aaababbabbba'
     p = 'b*?*'
+    assert G.main(p, s) == bool(re.search(glob_to_regex(p), s))
+
+def test_glob_19():
+    """Test set membership."""
+    p = 'ab[cde]'
+    s = 'abc'
+    assert G.main(p, s) == bool(re.search(glob_to_regex(p), s))
+
+def test_glob_20():
+    """Test negative set membership."""
+    p = 'ab[^cde]'
+    s = 'abf'
+    assert G.main(p, s) == bool(re.search(glob_to_regex(p), s))
+
+def test_glob_21():
+    """Test negative set membership."""
+    p = 'ab[!cde]'
+    s = 'abf'
+    assert G.main(p, s) == bool(re.search(glob_to_regex(p), s))
+
+def test_glob_22():
+    """Test multiple set memberships."""
+    p = 'ab[cde][cde][cde]'
+    s = 'abcde'
+    assert G.main(p, s) == bool(re.search(glob_to_regex(p), s))
+
+def test_glob_23():
+    """Test set membership."""
+    p = 'ab[cde]fgh'
+    s = 'abcfgh'
+    assert G.main(p, s) == bool(re.search(glob_to_regex(p), s))
+
+def test_glob_24():
+    """Test set membership."""
+    p = '[cde]fgh'
+    s = 'cfgh'
+    assert G.main(p, s) == bool(re.search(glob_to_regex(p), s))
+
+def test_glob_25():
+    """Test set membership."""
+    p = '?[cde]fgh'
+    s = 'fcfgh'
+    assert G.main(p, s) == bool(re.search(glob_to_regex(p), s))
+
+def test_glob_26():
+    """Test set membership."""
+    p = '*[cde]fgh'
+    s = 'fcfgh'
     assert G.main(p, s) == bool(re.search(glob_to_regex(p), s))
 
