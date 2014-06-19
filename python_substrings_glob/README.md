@@ -72,10 +72,8 @@ Python's own `glob` module relies on regex:
 
 ### Next features
 
- 1. Make new version `glob_match_w_lexer.py` to pass pattern through lexer first.
- 1. Add lexer. **DONE** This allows:
-   2. Character sets
-   2. Negated character sets
+ 1. Make new version `glob_match_w_lexer.py` to pass pattern through lexer first. Not till then can README instructions be revised.
  1. Eventually convert to Regex — see abandoned [regex engine](https://github.com/brannerchinese/regex_engine_py/) project.
+ 1. Add front-end visualization.
 
 [end]
