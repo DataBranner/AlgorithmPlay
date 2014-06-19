@@ -10,6 +10,7 @@ actions = {'?': 'question_mark',
 
 def lexer(p):
     """For each char or char-set in pattern, return a tuple naming its type."""
+    # We assume p is a raw string!
     p = deque(p)
     lexed = []
     while p:
