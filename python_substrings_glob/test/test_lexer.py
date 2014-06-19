@@ -51,9 +51,9 @@ def test_08():
             'c')]
 
 def test_09():
-    """Test asterisk in character set, not as Kleene star."""
+    """Test asterisk in character set, not as Kleene star; and 1-char set."""
     p = 'a[*]bc'
-    assert L.lexer(p) == [('char', 'a'), ('set', {'*'}), ('char', 'b'),
+    assert L.lexer(p) == [('char', 'a'), ('char', '*'), ('char', 'b'),
             ('char', 'c')]
 
 def test_10():
@@ -63,9 +63,9 @@ def test_10():
             'c')]
 
 def test_11():
-    """Close-] within character set."""
+    """Close-] within character set, and 1-char set => str."""
     p = 'a[]]bc'
-    assert L.lexer(p) == [('char', 'a'), ('set', {']'}), ('char', 'b'),
+    assert L.lexer(p) == [('char', 'a'), ('char', ']'), ('char', 'b'),
             ('char', 'c')]
 
 def test_12():

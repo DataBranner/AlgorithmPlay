@@ -43,7 +43,12 @@ def lexer(p):
             # Finally, append to lexed.
             # Note that if we are doing DFA, use of
             # set() here introduces some indeterminacy.
-            lexed.append((tag, set(lexed_set)))
+            lexed_set = set(lexed_set)
+            # Only return a set if there are two or more characters.
+            if len(lexed_set) == 1:
+                tag = 'char'
+                lexed_set = list(lexed_set)[0]
+            lexed.append((tag, lexed_set))
         elif c in actions:
             lexed.append((actions[c], c))
         else:
