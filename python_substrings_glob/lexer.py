@@ -17,9 +17,11 @@ def lexer(p):
         lexed_set = []
         c = p.popleft()
         tag = 'char'
+        print('c:', c)
         if c == '\\':
             # Process following character as escaped.
             lexed.append((tag, p.popleft()))
+            print('latest:', lexed[-1])
         elif c == '[':
             # Handle character sets.
             first_c_in_set = p.popleft()
