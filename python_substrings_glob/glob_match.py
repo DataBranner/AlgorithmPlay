@@ -15,6 +15,7 @@ def main(p, s):
     cursor_pair_queue = deque([(p_cursor, s_cursor)])
     cursor_pairs_seen = {}
     # Add all elements of string to dictionary of actions.
+    # Once lexer is introduced, this section will be replaced.
     actions = {c: count_character for c in set(s)}
     actions['?'] = question_mark
     actions['*'] = star
