@@ -17,9 +17,10 @@ def lexer(p):
     lexed_set = []
     while p:
         c = p.popleft()
+        tag = 'char'
         if c == '\\':
             # Process following character as escaped.
-            lexed.append(('char', p.popleft()))
+            lexed.append((tag, p.popleft()))
         elif c == '[':
             # Handle character sets.
             c_set = p.popleft()
@@ -37,10 +38,8 @@ def lexer(p):
                 while p:
                     c_set = p.popleft()
                     if c_set == '\\':
-
-                lexed_set.append(p.popleft())
-            p, lexed_set = lexer(p)
-            lexed.append(('set', lexed_set))
+                        pass
+            lexed.append((tag, lexed_set))
         else:
-            lexer.append(('char', c))
+            lexer.append((tag, c))
     return p. lexed
