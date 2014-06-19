@@ -6,6 +6,8 @@ This program runs in Python3 and Python2.7. The glob syntax currently treated is
 
  * `?`: represents any single character
  * `*`: represents zero or more characters of any sort
+ * `[abc]`: one character from among `a, b, c`
+ * `[!abc]` or `[^abc]`: one character not from among `a, b, c`
 
 ### To run
 
