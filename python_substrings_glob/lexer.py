@@ -5,8 +5,8 @@
 
 from collections import deque
 
-actions = {'?': ('dot'),
-        '*': ('star')}
+actions = {'?': 'question_mark',
+        '*': 'star'}
 
 def lexer(p):
     """For each char or char-set in pattern, return a tuple naming its type."""
@@ -44,6 +44,8 @@ def lexer(p):
             # Note that if we are doing DFA, use of
             # set() here introduces some indeterminacy.
             lexed.append((tag, set(lexed_set)))
+        elif c in actions:
+            lexed.append((actions[c], c))
         else:
             lexed.append((tag, c))
     return lexed

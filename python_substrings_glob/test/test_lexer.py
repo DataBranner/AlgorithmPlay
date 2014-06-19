@@ -37,3 +37,39 @@ def test_06():
     p = 'abc^d'
     assert L.lexer(p) == [('char', 'a'), ('char', 'b'), ('char', 'c'), ('char',
             '^'), ('char', 'd')]
+
+def test_07():
+    """Test single-character wildcard."""
+    p = 'a?bc'
+    assert L.lexer(p) == [('char', 'a'), ('question_mark', '?'), ('char', 'b'),
+            ('char', 'c')]
+
+def test_08():
+    """Test Kleene star wildcard."""
+    p = 'a*bc'
+    assert L.lexer(p) == [('char', 'a'), ('star', '*'), ('char', 'b'), ('char',
+            'c')]
+
+def test_09():
+    """Test asterisk in character set, not as Kleene star."""
+    p = 'a[*]bc'
+    assert L.lexer(p) == [('char', 'a'), ('set', {'*'}), ('char', 'b'),
+            ('char', 'c')]
+
+def test_10():
+    """Test escaped asterisk, not as Kleene star."""
+    p = 'a\*bc'
+    assert L.lexer(p) == [('char', 'a'), ('char', '*'), ('char', 'b'), ('char',
+            'c')]
+
+def test_11():
+    """Close-] within character set."""
+    p = 'a[]]bc'
+    assert L.lexer(p) == [('char', 'a'), ('set', {']'}), ('char', 'b'),
+            ('char', 'c')]
+
+def test_12():
+    """Close-] and open-[ within character set."""
+    p = 'a[][]bc'
+    assert L.lexer(p) == [('char', 'a'), ('set', {'[', ']'}), ('char', 'b'),
+            ('char', 'c')]
