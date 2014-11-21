@@ -78,6 +78,7 @@ def test_fill_skip_ahead_array_09():
         assert KMP.fill_skip_ahead_array(rand_str) == failTable(rand_str)[1:]
 
 def test_fill_skip_ahead_array_10():
+    """Test empty sequence."""
     assert KMP.fill_skip_ahead_array('') == [0]
 
 def test_fill_skip_ahead_array_11():
@@ -93,4 +94,5 @@ def test_match_02():
     assert list(KMP.match('abcdabcdabceabcd', 'abc')) == [0, 4, 8, 12]
 
 def test_match_03():
+    """Test empty subsequence."""
     assert list(KMP.match('abcdabcdabceabcd', '')) == []
