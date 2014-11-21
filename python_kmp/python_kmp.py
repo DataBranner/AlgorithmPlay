@@ -25,13 +25,10 @@ def match(sequence, subsequence):
     skip_ahead_array = fill_skip_ahead_array(subsequence)
     chars_matched = 0
     for cursor, element in enumerate(sequence):
-        print(chars_matched,)
         while chars_matched and subsequence[chars_matched] != element:
             chars_matched = skip_ahead_array[chars_matched - 1]
-        print(chars_matched,)
         if subsequence[chars_matched] == element:
             chars_matched += 1
-        print(chars_matched)
         if chars_matched == length:
             chars_matched = skip_ahead_array[chars_matched - 1]
             yield cursor - length + 1
