@@ -5,14 +5,14 @@
 
 """Implement the Knuth-Morris-Pratt subsequence-matching algorithm."""
 
-def fill_skip_ahead_array(sequence):
+def fill_skip_ahead_array(subsequence):
     """Implement COMPUTE-PREFIX-FUNCTION(P) of Cormen et al., Ch. 32."""
     skip_ahead_array = [0]
     prefix_length = 0
-    for cursor, element in enumerate(sequence[1:]):
-        while prefix_length and sequence[prefix_length] != element:
+    for cursor, element in enumerate(subsequence[1:]):
+        while prefix_length and subsequence[prefix_length] != element:
             prefix_length = skip_ahead_array[prefix_length - 1]
-        if sequence[prefix_length] == element:
+        if subsequence[prefix_length] == element:
             prefix_length += 1
         skip_ahead_array.append(prefix_length)
     return skip_ahead_array
