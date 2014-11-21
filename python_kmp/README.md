@@ -21,7 +21,7 @@ This is a generator that returns indexes in the sequence where the matches of th
     In [4]: next(m)
     Out[4]: 3
     
-    In [10]: next(m)
+    In [5]: next(m)
     ---------------------------------------------------------------------------
     StopIteration ...
 
