@@ -29,7 +29,7 @@ The `match` function calls another function
 
     fill_skip_ahead_array(subsequence)
 
-which returns an array that is improves the efficiency of `match` through a clever form of dynamic programming: it reports the longest prefix of the `subsequence` that also appears as a "proper suffix" of `subsequence`. That means the suffix can be skipped in later searches, since it is already known that the suffix is a match for the beginning of the `subsequence`, by some number of characters. 
+which returns an array that improves the efficiency of `match` through a clever form of dynamic programming: it reports the longest prefix of the `subsequence` that also appears as a "proper suffix" of `subsequence`. That means the suffix can be skipped in later searches, since it is already known that the suffix is a match for the beginning of the `subsequence`, by some number of characters. 
 
 This implementation basically follows Cormen et al., Ch. 32, with some unobtrusive Pythonic features (zero-indexing, `yield`, `list.append`).
 
