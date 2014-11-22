@@ -6,6 +6,7 @@ sys.path.append('..')
 import python_kmp as KMP
 import random
 import string
+import re
 
 # For testing our results we use a different version of the 
 # COMPUTE-PREFIX-FUNCTION for KMP, by Keith Schwarz.
@@ -63,28 +64,33 @@ def test_fill_skip_ahead_array_06():
             0, 0, 1, 2, 3, 0, 1, 2, 3, 4, 5, 4]
 
 def test_fill_skip_ahead_array_07():
-    for i in range(10):
+    """Test random subsequence against failTable results."""
+    for i in range(100):
         rand_str = random_string()
         assert KMP.fill_skip_ahead_array(rand_str) == failTable(rand_str)[1:]
 
 def test_fill_skip_ahead_array_08():
-    for i in range(10):
+    """Test random subsequence against failTable results."""
+    for i in range(100):
         rand_str = random_string(10, 7)
         assert KMP.fill_skip_ahead_array(rand_str) == failTable(rand_str)[1:]
 
 def test_fill_skip_ahead_array_09():
-    for i in range(10):
+    """Test random subsequence against failTable results."""
+    for i in range(100):
         rand_str = random_string(20, 40)
         assert KMP.fill_skip_ahead_array(rand_str) == failTable(rand_str)[1:]
 
 def test_fill_skip_ahead_array_10():
-    """Test empty sequence."""
+    """Test empty subsequence."""
     assert KMP.fill_skip_ahead_array('') == [0]
 
 def test_fill_skip_ahead_array_11():
+    """Test subsequence without repetitions."""
     assert KMP.fill_skip_ahead_array(['a', 'c']) == [0, 0]
 
 def test_fill_skip_ahead_array_12():
+    """Test subsequence with simple-case repetition."""
     assert KMP.fill_skip_ahead_array(['a', 'c', 'a', 'c']) == [0, 0, 1, 2]
 
 def test_match_01():
@@ -96,3 +102,12 @@ def test_match_02():
 def test_match_03():
     """Test empty subsequence."""
     assert list(KMP.match('abcdabcdabceabcd', '')) == []
+
+def test_match_04():
+    """Test random sequence against re.finditer results."""
+    for _ in range(100):
+        seq = random_string(1000, 3)
+        subseq = seq[-4:]
+        print(seq, subseq)
+        assert list(KMP.match(seq, subseq)) == [
+                i.start() for i in re.finditer('(?='+subseq+')', seq)]
