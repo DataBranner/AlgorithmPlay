@@ -6,7 +6,7 @@ Two short functions, one recursive and one iterative, to find an ordered sequenc
 
 The "trick" to the algorithm is that the input array of activities is sorted, in monotonically increasing order of finish-time. That sorting process enables the algorithm to ensure that, given any activity, no activities following it in the input array end earlier than it. Cormen's proof of the algorithm's validity is the most interesting part of the section.
 
-To use:
+### To use
 
  1. Set up virtual environment:
 
@@ -25,5 +25,15 @@ To use:
  3. Unlike the Cormen originals, these are written to make use of Python's convenient lists, so the two functions only take a single input list as argument — no cursor is used in either the recursive or iterative version.
 
     The recursive version uses `collections.deque` to enable efficient `popleft`, until the deque has been emptied; the iterative version uses Python's `for item in items` syntax.
+
+### Type hinting
+
+There is a second of the code, named `activity_selector_typing.py`, which uses Python type hinting. The `mypy` program (installed from `requirements_py3.txt`, above) is a static type checker that should report no errors in this program.
+
+```bash
+mypy activity_selector_typing.py
+```
+
+However, using Pytest with the type-hinting version (there is a separate test directory for this, `test_typing/`) hangs. I don't know why.
 
 [end]
