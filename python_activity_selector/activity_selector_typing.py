@@ -32,7 +32,7 @@ def recursive(lst: List[Tuple[int, int]]=None) -> List[Tuple[int, int]]:
 
     # Function body begins here.
     greedy_choice = lst.pop(0) # type: Tuple
-    to_return = [greedy_choice] # type: List
+    to_return = [greedy_choice] # type: List[Tuple[int, int]]
     while lst:
         if lst[0][0] >= greedy_choice[1]:
             returned = recursive(lst) # type: List

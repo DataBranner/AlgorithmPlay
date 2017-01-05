@@ -1,6 +1,6 @@
 ## Activity-Selection
 
-After Cormen et al., _Introduction to Algorithms_, third edition, Chapter 16 "Greedy Algorithms", Section 16.1 "An activity-selection problem."
+After Cormen et al., _Introduction to Algorithms_, Third Edition, Chapter 16 "Greedy Algorithms", Section 16.1 "An activity-selection problem."
 
 Two short functions, one recursive and one iterative, to find an ordered sequence (maximizing cardinality, but not considering total elapsed time) of activities that do not overlap: each activity is defined as a tuple `(start-time, finish-time)`.
 
@@ -34,6 +34,6 @@ There is a second of the code, named `activity_selector_typing.py`, which uses P
 mypy activity_selector_typing.py
 ```
 
-I ran into problems when switching back and forth between `list` and `deque` in the context of `typing`. So for the typed version of the program, I have used lists along, and am simply risking the added time complexity with `list.pop(0)` instead of `deque.popleft()` as in the untyped version.
+I ran into problems when switching back and forth between `list` and `deque` in the context of `typing`. So for the typed version of the program, I have used lists alone, and am simply risking the added time complexity with `list.pop(0)` instead of `deque.popleft()` as in the untyped version.
 
 [end]
