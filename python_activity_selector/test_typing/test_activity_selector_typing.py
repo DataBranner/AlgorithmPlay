@@ -1,11 +1,10 @@
 #! /usr/bin/python
 # test_activity_selector_typing
 # David Branner
-# 20170103
+# 20170104
 
 """Supply tests (with one utility function)."""
 
-from collections import deque
 from operator import itemgetter
 import os
 import sys
@@ -22,25 +21,25 @@ def sort_by_final_value(lst: List[Tuple[int, int]]) -> List[Tuple[int, int]]:
 
 def test_recursive_four_items() -> None:
     """Test four item case recursively."""
-    activities = deque([(1, 5), (2, 4), (3, 7), (2, 3)])
+    activities = [(1, 5), (2, 4), (3, 7), (2, 3)]
     activities = sort_by_final_value(activities)
-    expected = deque([(2, 3), (3, 7)])
+    expected = [(2, 3), (3, 7)]
     observed = AS.recursive(activities)
     assert observed == expected
 
 def test_recursive_one_item() -> None:
     """Test single item recursively."""
-    activities = deque([(4, 7)])
-    activities = sort_by_final_value(activities)
-    expected = deque([(4, 7)])
+    activities = [(4, 7)]
+    activities = list(sort_by_final_value(activities))
+    expected = [(4, 7)]
     observed = AS.recursive(activities)
     assert observed == expected
 
 def test_recursive_empty_case() -> None:
     """Test empty list recursively."""
-    activities = deque()
-    activities = sort_by_final_value(activities)
-    expected = deque()
+    activities = list()
+    activities = list(sort_by_final_value(activities))
+    expected = list()
     observed = AS.recursive(activities)
     assert observed == expected
 
@@ -48,32 +47,32 @@ def test_recursive_cormen_example() -> None:
     """Test example from Cormen volume recursively."""
     activities = [(1, 4),  (3, 5),  (0, 6),  (5, 7),  (3, 9), (5, 9),
                   (6, 10), (8, 11), (8, 12), (2, 14), (12, 16)]
-    activities = sort_by_final_value(activities)
-    expected = deque([(1, 4), (5, 7), (8, 11), (12, 16)])
+    activities = list(sort_by_final_value(activities))
+    expected = [(1, 4), (5, 7), (8, 11), (12, 16)]
     observed = AS.recursive(activities)
     assert observed == expected
 
 def test_iterative_four_items() -> None:
     """Test four item case iteratively."""
-    activities = deque([(1, 5), (2, 4), (3, 7), (2, 3)])
+    activities = [(1, 5), (2, 4), (3, 7), (2, 3)]
     activities = sort_by_final_value(activities)
-    expected = deque([(2, 3), (3, 7)])
+    expected = [(2, 3), (3, 7)]
     observed = AS.iterative(activities)
     assert observed == expected
 
 def test_iterative_one_item() -> None:
     """Test single item iteratively."""
-    activities = deque([(4, 7)])
+    activities = [(4, 7)]
     activities = sort_by_final_value(activities)
-    expected = deque([(4, 7)])
+    expected = [(4, 7)]
     observed = AS.iterative(activities)
     assert observed == expected
 
 def test_iterative_empty_case() -> None:
     """Test empty list iteratively."""
-    activities = deque()
+    activities = list()
     activities = sort_by_final_value(activities)
-    expected = deque()
+    expected = list()
     observed = AS.iterative(activities)
     assert observed == expected
 
@@ -82,7 +81,7 @@ def test_iterative_cormen_example() -> None:
     activities = [(1, 4),  (3, 5),  (0, 6),  (5, 7),  (3, 9), (5, 9),
                   (6, 10), (8, 11), (8, 12), (2, 14), (12, 16)]
     activities = sort_by_final_value(activities)
-    expected = deque([(1, 4), (5, 7), (8, 11), (12, 16)])
+    expected = [(1, 4), (5, 7), (8, 11), (12, 16)]
     observed = AS.iterative(activities)
     assert observed == expected
 
